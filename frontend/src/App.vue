@@ -1,4 +1,5 @@
 <template>
+  <div class="app">
   <div class="nav">
     <router-link class="nav-link" to="/">Home</router-link> |
     <router-link class="nav-link" to="/counter">Counter</router-link> |
@@ -6,9 +7,13 @@
     <router-link class="nav-link" to="/about">About</router-link>
   </div>
   <router-view />
+  </div>
 </template>
 
 <style scoped>
+.app {
+  background-color: #231A7C;
+}
 .nav {
   text-align: center;
   padding: 30px;
