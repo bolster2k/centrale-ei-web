@@ -2,7 +2,7 @@
   <div class="home">
     <div>
       <p>Rentrer un film</p>
-      <input v-model="movieName"/>
+      <input v-model="movieName" />
       <p>{{ movieName }}</p>
     </div>
     <div>
@@ -12,7 +12,7 @@
     <div>
       <ul>
         <li v-for="movie in movies" :key="movie.id">
-          <Movie :movie="movie"/>
+          <Movie :movie="movie" />
         </li>
       </ul>
     </div>
@@ -27,7 +27,7 @@ export default {
   data: function () {
     return {
       movieName: "",
-      movies:[],
+      movies: [],
     };
   },
   components: {
@@ -36,11 +36,13 @@ export default {
   methods: {
     fetchMovies: function () {
       axios
-        .get(`https://api.themoviedb.org/3/movie/popular?api_key=a0a7e40dc8162ed7e37aa2fc97db5654&language=en-US&page=1`)
+        .get(
+          `https://api.themoviedb.org/3/movie/popular?api_key=a0a7e40dc8162ed7e37aa2fc97db5654&language=en-US&page=1`
+        )
         .then((response) => {
           // Do something if call succeeded
           for (const res in response.data.results) {
-            this.movies.push(response.data.results[res])
+            this.movies.push(response.data.results[res]);
           }
         })
         .catch((error) => {
@@ -50,7 +52,7 @@ export default {
     },
   },
   created: function () {
-    this.fetchMovies()
+    this.fetchMovies();
   },
 };
 </script>

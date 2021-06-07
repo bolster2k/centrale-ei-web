@@ -1,7 +1,7 @@
 <template>
-  {{ movie.title }}<br>
-  {{ movie.release_date}}<br>
-  <img :src="`https://image.tmdb.org/t/p/original${movie.poster_path}`"/>
+  {{ movie.title }}<br />
+  {{ movie.release_date }}<br />
+  <img :src="`https://image.tmdb.org/t/p/original${movie.poster_path}`" />
 </template>
 <script>
 export default {
@@ -13,6 +13,6 @@ export default {
 </script>
 <style scoped>
 img {
-    width: 200px
+  width: 200px;
 }
 </style>
