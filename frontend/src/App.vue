@@ -1,19 +1,14 @@
 <template>
-  <div class="app">
-    <div class="nav">
-      <router-link class="nav-link" to="/">Home</router-link> |
-      <router-link class="nav-link" to="/counter">Counter</router-link> |
-      <router-link class="nav-link" to="/users">Users</router-link> |
-      <router-link class="nav-link" to="/about">About</router-link>
-    </div>
-    <router-view />
+  <div class="nav">
+    <router-link class="nav-link" to="/">Home</router-link> |
+    <router-link class="nav-link" to="/counter">Counter</router-link> |
+    <router-link class="nav-link" to="/users">Users</router-link> |
+    <router-link class="nav-link" to="/about">About</router-link>
   </div>
+  <router-view />
 </template>
 
 <style scoped>
-.app {
-  background-color: #231a7c;
-}
 .nav {
   text-align: center;
   padding: 30px;
@@ -26,5 +21,10 @@
 
 .nav-link.router-link-exact-active {
   color: #42b983;
+}
+</style>
+<style>
+body {
+  background-color: #231a7c;
 }
 </style>
