@@ -13,6 +13,8 @@ router.post("/new", function (req, res) {
     const newMovies = new MoviesModel({
       title: req.body.title,
       date: req.body.date,
+      path: req.body.path,
+      resume: req.body.resume,
     });
   
     newMovies
@@ -23,7 +25,7 @@ router.post("/new", function (req, res) {
       .catch(function (error) {
         if (error.code === 11000) {
           res.status(400).json({
-            message: `Movie with title "${newMovies.email}" already exists`,
+            message: `Movie with title "${newMovies.title}" already exists`,
           });
         } else {
           res.status(500).json({ message: "Error while creating the movie" });
