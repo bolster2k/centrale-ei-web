@@ -25,6 +25,8 @@
 </style>
 <style>
 body {
-  background-color: #231a7c;
+  background: linear-gradient(#0B1649, #9198E5);
+  color: white;
+  font: 1.5em;
 }
 </style>
