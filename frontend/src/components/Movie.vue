@@ -1,7 +1,7 @@
 <template>
+  <img :src="`https://image.tmdb.org/t/p/original${movie.path}`" /><br />
   {{ movie.title }}<br />
-  {{ movie.date }}<br />
-  <img :src="`https://image.tmdb.org/t/p/original${movie.path}`" />
+  {{ dateday(movie.date) }}
 </template>
 <script>
 export default {
@@ -9,10 +9,19 @@ export default {
   props: {
     movie: Object,
   },
+  methods: {
+    dateday: function (date) {
+      let u = "";
+      for (let i = 0; i < 10; i++) {
+        u = u.concat(date[i]);
+      }
+      return u;
+    },
+  },
 };
 </script>
 <style scoped>
 img {
-  width: 200px;
+  width: 15em;
 }
 </style>

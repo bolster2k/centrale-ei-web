@@ -26,10 +26,3 @@
   color: #42b983;
 }
 </style>
-<style>
-body {
-  background: linear-gradient(#0b1649, #9198e5);
-  color: white;
-  font: 1.5em;
-}
-</style>
