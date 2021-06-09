@@ -3,7 +3,9 @@
     <router-link class="nav-link" to="/">Home</router-link> |
     <router-link class="nav-link" to="/counter">Counter</router-link> |
     <router-link class="nav-link" to="/users">Users</router-link> |
-    <router-link class="nav-link" to="/about">About</router-link>
+    <router-link class="nav-link" to="/about">About</router-link> |
+    <router-link class="nav-link" to="/register">Register</router-link> |
+    <router-link class="nav-link" to="/newmovie">NewMovie</router-link>
   </div>
   <router-view />
 </template>
@@ -21,12 +23,5 @@
 
 .nav-link.router-link-exact-active {
   color: #42b983;
-}
-</style>
-<style>
-body {
-  background: linear-gradient(#0B1649, #9198E5);
-  color: white;
-  font: 1.5em;
 }
 </style>

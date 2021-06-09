@@ -11,8 +11,9 @@ router.get("/", function (req, res) {
 router.post("/new", function (req, res) {
   const newUser = new UserModel({
     email: req.body.email,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
+    firstName: req.body.firstname,
+    lastName: req.body.lastname,
+    password: req.body.password,
   });
 
   newUser
@@ -21,6 +22,7 @@ router.post("/new", function (req, res) {
       res.status(201).json(newDocument);
     })
     .catch(function (error) {
+      console.log(error);
       if (error.code === 11000) {
         res.status(400).json({
           message: `User with email "${newUser.email}" already exists`,
@@ -31,4 +33,10 @@ router.post("/new", function (req, res) {
     });
 });
 
+router.delete("/delete", function (req, res) {
+  UserModel.deleteOne({ _id: req.body.id }, function (err) {
+    if (err) return res.json({ message: "error" });
+  });
+  res.status(200).json({});
+});
 module.exports = router;
