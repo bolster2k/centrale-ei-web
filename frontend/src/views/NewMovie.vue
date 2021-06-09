@@ -73,7 +73,7 @@ export default {
       // POST request using axios with error handling
       const newmovie = {
         title: this.title,
-        date: this.date,
+        date: this.date + "T00:00:00.000Z",
         path: this.path,
         resume: this.resume,
       };
