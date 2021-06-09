@@ -82,12 +82,12 @@ export default {
       };
       axios
         .post("http://localhost:3000/users/new", newuser)
-        .then(function(response){
+        .then((response) => {
       const status = 
-        JSON.parse(response.data.response.status);
+        JSON.parse(response.status);
               //redirect logic
-        if (status == '200') {
-        self.$router.push('/any route here');
+        if (status == '201') {
+        this.$router.push('/');
       }
     })
         .catch((error) => {
