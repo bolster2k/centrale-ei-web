@@ -4,6 +4,11 @@ const proFreq = require("../controller/freq");
 const router = express.Router();
 const axios = require("axios");
 
+function sleep(delay) {
+  var start = new Date().getTime();
+  while (new Date().getTime() < start + delay);
+}
+
 router.get("/", function (req, res) {
   const add = (movie, res) => {
     const newMovies = new MoviesModel({
@@ -18,21 +23,23 @@ router.get("/", function (req, res) {
       date: movie.release_date,
       path: movie.poster_path,
       resume: movie.overview,
-    });
+    }).then(() => {
 
-    newMovies
-      .save()
-      .then(function (newDocument) {
-        res.status(201).json(newDocument);
-      })
-      .catch(function (error) {
-        if (error.code === 11000) {
-          res.status(400);
-        } else {
-          res.status(500);
-        }
-      });
-    console.log(req.body);
+      newMovies
+        .save()
+        .then(function (newDocument) {
+          res.status(201).json(newDocument);
+        })
+        .catch(function (error) {
+          if (error.code === 11000) {
+            res.status(400);
+          } else {
+            res.status(500);
+          }
+        });
+      console.log(req.body);
+
+    });
   };
   axios
     .get(
