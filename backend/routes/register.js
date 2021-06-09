@@ -1,6 +1,5 @@
 const express = require("express");
 const UserModel = require("../models/user");
-const MoviesModel = require("../models/movies");
 const router = express.Router();
 
 router.post("/", function (req, res) {
@@ -29,7 +28,7 @@ router.post("/", function (req, res) {
 });
 
 router.delete("/delete", function (req, res) {
-  MoviesModel.deleteOne({ _id: req.body.id }, function (err) {
+  UserModel.deleteOne({ _id: req.body.id }, function (err) {
     if (err) return res.json({ message: "error" });
   });
   res.status(200).json({});
