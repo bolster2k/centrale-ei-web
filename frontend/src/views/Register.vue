@@ -14,6 +14,7 @@
                 class="input"
                 name="firstname"
                 v-model="firstname"
+                placeholder="firstname"
               />
             </div>
             <!-- lasttname -->
@@ -24,13 +25,14 @@
                 class="input"
                 name="lastname"
                 v-model="lastname"
+                placeholder="lastname"
               />
             </div>
 
             <!-- email -->
             <div class="field">
               <label class="label">Email</label>
-              <input type="text" class="input" name="email" v-model="email" />
+              <input type="email" class="input" name="email" v-model="email" placeholder="email" />
             </div>
 
             <!-- password -->
@@ -41,6 +43,7 @@
                 class="input"
                 name="password"
                 v-model="password"
+                placeholder="password"
               />
             </div>
 

@@ -14,6 +14,7 @@
                 class="input"
                 name="title"
                 v-model="title"
+                placeholder="tapez le titre de votre film"
               />
             </div>
             <!-- lasttname -->
@@ -24,13 +25,14 @@
                 class="input"
                 name="date"
                 v-model="date"
+                placeholder="yyyy-mm-dd (tapez la date de sortie)"
               />
             </div>
 
             <!-- photo path -->
             <div class="field">
               <label class="label">Photo Path</label>
-              <input type="text" class="input" name="path" v-model="path" />
+              <input type="text" class="input" name="path" v-model="path" placeholder="tapez le path de la photo jpeg"/>
             </div>
 
             <!-- resume -->
@@ -41,6 +43,7 @@
                 class="input"
                 name="resume"
                 v-model="resume"
+                placeholder="tapez un resume de votre film"
               />
             </div>
 
