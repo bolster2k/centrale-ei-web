@@ -6,6 +6,7 @@ const jsonErrorHandler = require("./services/jsonErrorHandler");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const moviesRouter = require("./routes/movies");
+const freqRouter = require("./routes/freq");
 const fillRouter = require("./routes/fill");
 const routeNotFoundJsonHandler = require("./services/routeNotFoundJsonHandler");
 
@@ -26,6 +27,7 @@ app.use(jsonErrorHandler);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/movies", moviesRouter);
+app.use("/freq", freqRouter);
 app.use("/fill", fillRouter);
 app.use(routeNotFoundJsonHandler);
 
