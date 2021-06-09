@@ -2,48 +2,48 @@
   <div class="hero is-fullheight is-info is-bold">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title has-text-centered">You can now register</h1>
+        <h1 class="title has-text-centered">Add your new movie</h1>
         <div class="box">
-          <!-- our signup form ===================== -->
-          <form id="signup-form" @submit.prevent="RegisterUser">
-            <!-- firstname -->
+          <!-- our addmovie form ===================== -->
+          <form id="addmovie-form" @submit.prevent="RegisterMovie">
+            <!-- title -->
             <div class="field">
-              <label class="label">FirstName</label>
+              <label class="label">Title</label>
               <input
                 type="text"
                 class="input"
-                name="firstname"
-                v-model="firstname"
-                placeholder="firstname"
+                name="title"
+                v-model="title"
+                placeholder="tapez le titre de votre film"
               />
             </div>
             <!-- lasttname -->
             <div class="field">
-              <label class="label">LastName</label>
+              <label class="label">Date</label>
               <input
                 type="text"
                 class="input"
-                name="lastname"
-                v-model="lastname"
-                placeholder="lastname"
+                name="date"
+                v-model="date"
+                placeholder="yyyy-mm-dd (tapez la date de sortie)"
               />
             </div>
 
-            <!-- email -->
+            <!-- photo path -->
             <div class="field">
-              <label class="label">Email</label>
-              <input type="email" class="input" name="email" v-model="email" placeholder="email" />
+              <label class="label">Photo Path</label>
+              <input type="text" class="input" name="path" v-model="path" placeholder="tapez le path de la photo jpeg"/>
             </div>
 
-            <!-- password -->
+            <!-- resume -->
             <div class="field">
-              <label class="label">Password</label>
+              <label class="label">Resume</label>
               <input
                 type="text"
                 class="input"
-                name="password"
-                v-model="password"
-                placeholder="password"
+                name="resume"
+                v-model="resume"
+                placeholder="tapez un resume de votre film"
               />
             </div>
 
@@ -61,27 +61,27 @@
 <script>
 import axios from "axios";
 export default {
-  name: "Resgister",
-  el: "#signup-form",
+  name: "NewMovie",
+  el: "#addmovie-form",
   data: function () {
     return {
-      email: "",
-      firstname: "",
-      lastname: "",
-      password: "",
+      title: "",
+      date: "",
+      path: "",
+      resume: "",
     };
   },
   methods: {
-    RegisterUser: function () {
+    RegisterMovie: function () {
       // POST request using axios with error handling
-      const newuser = {
-        email: this.email,
-        firstname: this.firstname,
-        lastname: this.lastname,
-        password: this.password,
+      const newmovie = {
+        title: this.title,
+        date: this.date + "T00:00:00.000Z",
+        path: this.path,
+        resume: this.resume,
       };
       axios
-        .post("http://localhost:3000/users/new", newuser)
+        .post("http://localhost:3000/movies/new", newmovie)
         .then((response) => (this.newuserId = response.data.id))
         .catch((error) => {
           this.errorMessage = error.message;
@@ -94,7 +94,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.register {
+.NewMovie {
   text-align: center;
 }
 
