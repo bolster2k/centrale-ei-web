@@ -7,6 +7,7 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const moviesRouter = require("./routes/movies");
 const fillRouter = require("./routes/fill");
+const filmRouter = require("./routes/film");
 const registerRouter = require("./routes/register")
 const routeNotFoundJsonHandler = require("./services/routeNotFoundJsonHandler");
 
@@ -28,6 +29,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/movies", moviesRouter);
 app.use("/fill", fillRouter);
+app.use("/film", filmRouter);
 app.use("/register", registerRouter)
 
 app.use(routeNotFoundJsonHandler);
