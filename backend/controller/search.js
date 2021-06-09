@@ -2,78 +2,80 @@ const express = require("express");
 const MoviesModel = require("../models/movies");
 const FreqModel = require("../models/freq");
 
-const searchMovie = function(req, res) {
-    // Séparation
-    var lword = req.query.split(" ");
-    for(word in lword)
-    {
-        lword[word] = lword[word].toLowerCase();
-    }
-    console.log(lword);
+const searchMovie = function (req, res) {
+  // Séparation
+  var lword = req.query.split(" ");
+  for (word in lword) {
+    lword[word] = lword[word].toLowerCase();
+  }
+  console.log(lword);
 
-    var resultmovie = [];
+  var resultmovie = [];
 
-    // Récupération des fréquences
-    FreqModel.find().where('word').in(lword).then( function(freqgen){
+  // Récupération des fréquences
+  FreqModel.find()
+    .where("word")
+    .in(lword)
+    .then(function (freqgen) {
+      console.log("freqgen :");
+      console.log(freqgen);
 
-        console.log("freqgen :");
-        console.log(freqgen);
+      console.log("// Récupération des films");
+      MoviesModel.find({}).then(function (movies) {
+        var N = movies.length;
+        for (movie in movies) {
+          movie = movies[movie];
+          var ns = 0;
+          console.log("=Analyse Film=");
+          console.log(movie);
+          for (word_search in lword) {
+            console.log("===Analyse Requête===");
+            word_search = lword[word_search];
+            //console.log(word_search);
 
-        console.log("// Récupération des films");
-        MoviesModel.find({}).then( function(movies) {
-            var N = movies.length;
-            for(movie in movies)
-            {
-                movie = movies[movie];
-                var ns = 0;
-                console.log("=Analyse Film=");
-                console.log(movie);
-                for (word_search in lword)
-                {
-                    console.log("===Analyse Requête===");
-                    word_search = lword[word_search];
-                    //console.log(word_search);
-
-                    freqindata = movie['title'].toLowerCase().split(word_search).length + movie['resume'].toLowerCase().split(word_search).length - 2;
-                    console.log("freqindata :");
-                    console.log(freqindata);
-                    if (freqindata <= 0)
-                    {
-                        console.log("Passe");
-                        continue;
-                    }
-
-                    var freqword = null;
-                    for(elem in freqgen){
-                        if(freqgen[elem]['word'] == word_search){
-                            freqword = freqgen[elem];
-                        }
-                    }
-                    console.log(freqword);
-                    if(freqword == null){
-                        console.log("Passe");
-                        console.log(word_search);
-                        continue;
-                    }
-
-                    ns += (Math.log(1 + freqindata)) * Math.log(1 + freqword.number / N);
-                    console.log(ns);
-                }
-                console.log("ns (film) :");
-                console.log(ns);
-
-                resultmovie.push({score:ns, data:movie});
+            freqindata =
+              movie["title"].toLowerCase().split(word_search).length +
+              movie["resume"].toLowerCase().split(word_search).length -
+              2;
+            console.log("freqindata :");
+            console.log(freqindata);
+            if (freqindata <= 0) {
+              console.log("Passe");
+              continue;
             }
 
-            console.log("Résultat");
+            var freqword = null;
+            for (elem in freqgen) {
+              if (freqgen[elem]["word"] == word_search) {
+                freqword = freqgen[elem];
+              }
+            }
+            console.log(freqword);
+            if (freqword == null) {
+              console.log("Passe");
+              console.log(word_search);
+              continue;
+            }
 
-            resultmovie.sort(function(a, b){return b.score-a.score});
-            console.log(resultmovie);
+            ns += Math.log(1 + freqindata) * Math.log(1 + freqword.number / N);
+            console.log(ns);
+          }
+          console.log("ns (film) :");
+          console.log(ns);
 
-            res.json(resultmovie);
+          resultmovie.push({ score: ns, data: movie });
+        }
+
+        console.log("Résultat");
+
+        resultmovie.sort(function (a, b) {
+          return b.score - a.score;
         });
+        console.log(resultmovie);
+
+        res.json(resultmovie);
+      });
     });
 };
-
 
 module.exports = searchMovie;
