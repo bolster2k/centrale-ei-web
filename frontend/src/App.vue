@@ -4,7 +4,9 @@
     <router-link class="nav-link" to="/counter">Counter</router-link> |
     <router-link class="nav-link" to="/users">Users</router-link> |
     <router-link class="nav-link" to="/about">About</router-link> |
-    <router-link class="nav-link" to="/register">Register</router-link>
+    <router-link class="nav-link" to="/register">Register</router-link> |
+    <router-link class="nav-link" to="/newmovie">NewMovie</router-link>
+
   </div>
   <router-view />
 </template>

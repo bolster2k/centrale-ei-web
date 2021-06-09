@@ -2,7 +2,7 @@
   <div class="hero is-fullheight is-info is-bold">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title has-text-centered">Vue.js Form Processing</h1>
+        <h1 class="title has-text-centered">You can now register</h1>
         <div class="box">
           <!-- our signup form ===================== -->
           <form id="signup-form" @submit.prevent="RegisterUser">

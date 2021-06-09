@@ -2,11 +2,11 @@
   <div class="hero is-fullheight is-info is-bold">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title has-text-centered">Vue.js Form Processing</h1>
+        <h1 class="title has-text-centered">Add your new movie</h1>
         <div class="box">
-          <!-- our signup form ===================== -->
+          <!-- our addmovie form ===================== -->
           <form id="addmovie-form" @submit.prevent="RegisterMovie">
-            <!-- firstname -->
+            <!-- title -->
             <div class="field">
               <label class="label">Title</label>
               <input
@@ -27,13 +27,13 @@
               />
             </div>
 
-            <!-- email -->
+            <!-- photo path -->
             <div class="field">
               <label class="label">Photo Path</label>
               <input type="text" class="input" name="path" v-model="path" />
             </div>
 
-            <!-- password -->
+            <!-- resume -->
             <div class="field">
               <label class="label">Resume</label>
               <input
@@ -71,14 +71,14 @@ export default {
   methods: {
     RegisterMovie: function () {
       // POST request using axios with error handling
-      const newuser = {
-        email: this.email,
-        firstname: this.firstname,
-        lastname: this.lastname,
-        password: this.password,
+      const newmovie = {
+        title: this.title,
+        date: this.date,
+        path: this.path,
+        resume: this.resume,
       };
       axios
-        .post("http://localhost:3000/users/new", newuser)
+        .post("http://localhost:3000/movies/new", newmovie)
         .then((response) => (this.newuserId = response.data.id))
         .catch((error) => {
           this.errorMessage = error.message;
