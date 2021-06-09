@@ -26,7 +26,6 @@ export default {
   name: "Home",
   data: function () {
     return {
-      movieName: "",
       movies: [],
     };
   },
@@ -36,9 +35,7 @@ export default {
   methods: {
     fetchMovies: function () {
       axios
-        .get(
-          `http://localhost:3000/movies`
-        )
+        .get(`http://localhost:3000/movies`)
         .then((response) => {
           // Do something if call succeeded
           for (const res in response.data.movies) {

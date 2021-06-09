@@ -3,7 +3,8 @@
     <router-link class="nav-link" to="/">Home</router-link> |
     <router-link class="nav-link" to="/counter">Counter</router-link> |
     <router-link class="nav-link" to="/users">Users</router-link> |
-    <router-link class="nav-link" to="/about">About</router-link>
+    <router-link class="nav-link" to="/about">About</router-link> |
+    <router-link class="nav-link" to="/register">Register</router-link>
   </div>
   <router-view />
 </template>
@@ -25,7 +26,7 @@
 </style>
 <style>
 body {
-  background: linear-gradient(#0B1649, #9198E5);
+  background: linear-gradient(#0b1649, #9198e5);
   color: white;
   font: 1.5em;
 }

@@ -7,6 +7,7 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const moviesRouter = require("./routes/movies");
 const fillRouter = require("./routes/fill");
+const registerRouter = require("./routes/register")
 const routeNotFoundJsonHandler = require("./services/routeNotFoundJsonHandler");
 
 mongoose.connect(process.env.MONGO_DB_URL, {
@@ -27,6 +28,8 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/movies", moviesRouter);
 app.use("/fill", fillRouter);
+app.use("/register", registerRouter)
+
 app.use(routeNotFoundJsonHandler);
 
 const port = parseInt(process.env.PORT || "3000");
