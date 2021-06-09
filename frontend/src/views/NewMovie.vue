@@ -32,7 +32,13 @@
             <!-- photo path -->
             <div class="field">
               <label class="label">Photo Path</label>
-              <input type="text" class="input" name="path" v-model="path" placeholder="tapez le path de la photo jpeg"/>
+              <input
+                type="text"
+                class="input"
+                name="path"
+                v-model="path"
+                placeholder="tapez le path de la photo jpeg"
+              />
             </div>
 
             <!-- resume -->

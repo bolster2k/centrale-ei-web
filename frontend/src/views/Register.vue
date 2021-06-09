@@ -32,7 +32,13 @@
             <!-- email -->
             <div class="field">
               <label class="label">Email</label>
-              <input type="email" class="input" name="email" v-model="email" placeholder="email" />
+              <input
+                type="email"
+                class="input"
+                name="email"
+                v-model="email"
+                placeholder="email"
+              />
             </div>
 
             <!-- password -->
