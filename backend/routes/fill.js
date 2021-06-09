@@ -24,7 +24,6 @@ router.get("/", function (req, res) {
           res.status(500);
         }
       });
-    console.log(req.body);
   };
   axios
     .get(
