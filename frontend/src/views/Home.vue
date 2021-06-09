@@ -28,7 +28,6 @@ export default {
   name: "Home",
   data: function () {
     return {
-      movieName: "",
       movies: [],
     };
   },
