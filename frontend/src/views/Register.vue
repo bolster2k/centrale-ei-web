@@ -88,7 +88,14 @@ export default {
       };
       axios
         .post("http://localhost:3000/users/new", newuser)
-        .then((response) => (this.newuserId = response.data.id))
+        .then((response) => {
+      const status = 
+        JSON.parse(response.status);
+              //redirect logic
+        if (status == '201') {
+        this.$router.push('/');
+      }
+    })
         .catch((error) => {
           this.errorMessage = error.message;
           console.error("There was an error!", error);
