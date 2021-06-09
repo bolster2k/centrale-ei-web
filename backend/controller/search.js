@@ -2,33 +2,77 @@ const express = require("express");
 const MoviesModel = require("../models/movies");
 const FreqModel = require("../models/freq");
 
-const searchMovie = function(req) {
+const searchMovie = function(req, res) {
     // Séparation
-    var lword = req.split(" ");
-
-    // Récupération des films
-    var movies = MoviesModel.find({});
-    var N = movies.length;
-    
-    // Récupération des fréquences
-    var freq = FreqModel.find({});
-
-    for(movie in movies)
+    var lword = req.query.split(" ");
+    for(word in lword)
     {
-        var ns = 0;
-        for (word_search in lword)
-        {
-            FreqModel.find({word_search:word}).then(function (freq) {
-                ns += (1 + Math.log(1 / lword.length)) * Math.log(freq.frequency / N);
-                console.log(ns);
-                console.log(word_search);
-                console.log(freq.frequency);
-            });
-        }
-        movie.score = ns;
+        lword[word] = lword[word].toLowerCase();
     }
+    console.log(lword);
 
-    console.log(movies);
+    var resultmovie = [];
+
+    // Récupération des fréquences
+    FreqModel.find().where('word').in(lword).then( function(freqgen){
+
+        console.log("freqgen :");
+        console.log(freqgen);
+
+        console.log("// Récupération des films");
+        MoviesModel.find({}).then( function(movies) {
+            var N = movies.length;
+            for(movie in movies)
+            {
+                movie = movies[movie];
+                var ns = 0;
+                console.log("=Analyse Film=");
+                console.log(movie);
+                for (word_search in lword)
+                {
+                    console.log("===Analyse Requête===");
+                    word_search = lword[word_search];
+                    //console.log(word_search);
+
+                    freqindata = movie['title'].toLowerCase().split(word_search).length + movie['resume'].toLowerCase().split(word_search).length - 2;
+                    console.log("freqindata :");
+                    console.log(freqindata);
+                    if (freqindata <= 0)
+                    {
+                        console.log("Passe");
+                        continue;
+                    }
+
+                    var freqword = null;
+                    for(elem in freqgen){
+                        if(freqgen[elem]['word'] == word_search){
+                            freqword = freqgen[elem];
+                        }
+                    }
+                    console.log(freqword);
+                    if(freqword == null){
+                        console.log("Passe");
+                        console.log(word_search);
+                        continue;
+                    }
+
+                    ns += (Math.log(1 + freqindata)) * Math.log(1 + freqword.number / N);
+                    console.log(ns);
+                }
+                console.log("ns (film) :");
+                console.log(ns);
+
+                resultmovie.push({score:ns, data:movie});
+            }
+
+            console.log("Résultat");
+
+            resultmovie.sort(function(a, b){return b.score-a.score});
+            console.log(resultmovie);
+
+            res.json(resultmovie);
+        });
+    });
 };
 
 

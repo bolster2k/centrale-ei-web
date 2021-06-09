@@ -1,5 +1,5 @@
 const express = require("express");
-const MoviesModel = require("../models/freq");
+const FreqModel = require("../models/freq");
 const router = express.Router();
 
 router.post("/new", function (req, res) {
@@ -26,8 +26,11 @@ router.post("/new", function (req, res) {
       console.log(req.body);
 });
 
-router.delete("/delete", function (req, res) {
-
+router.delete("/clear", function (req, res) {
+  FreqModel.deleteMany({}, function (err) {
+    if (err) return res.json({ message : "error"});
+  });
+  res.status(200).json({})
 });
 
 module.exports = router;
