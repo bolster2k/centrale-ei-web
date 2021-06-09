@@ -1,11 +1,19 @@
 const express = require("express");
 const MoviesModel = require("../models/movies");
+const proFreq = require("../controller/freq");
 const router = express.Router();
 const axios = require("axios");
 
 router.get("/", function (req, res) {
   const add = (movie, res) => {
     const newMovies = new MoviesModel({
+      title: movie.title,
+      date: movie.release_date,
+      path: movie.poster_path,
+      resume: movie.overview,
+    });
+
+    proFreq({
       title: movie.title,
       date: movie.release_date,
       path: movie.poster_path,

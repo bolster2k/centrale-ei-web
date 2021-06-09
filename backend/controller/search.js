@@ -1,11 +1,10 @@
-const express = require("express");
 const MoviesModel = require("../models/movies");
 const FreqModel = require("../models/freq");
 
 const searchMovie = function (req, res) {
   // Séparation
   var lword = req.query.split(" ");
-  for (word in lword) {
+  for (let word in lword) {
     lword[word] = lword[word].toLowerCase();
   }
   console.log(lword);
@@ -23,17 +22,17 @@ const searchMovie = function (req, res) {
       console.log("// Récupération des films");
       MoviesModel.find({}).then(function (movies) {
         var N = movies.length;
-        for (movie in movies) {
+        for (let movie in movies) {
           movie = movies[movie];
           var ns = 0;
           console.log("=Analyse Film=");
           console.log(movie);
-          for (word_search in lword) {
+          for (let word_search in lword) {
             console.log("===Analyse Requête===");
             word_search = lword[word_search];
             //console.log(word_search);
 
-            freqindata =
+            var freqindata =
               movie["title"].toLowerCase().split(word_search).length +
               movie["resume"].toLowerCase().split(word_search).length -
               2;
@@ -45,7 +44,7 @@ const searchMovie = function (req, res) {
             }
 
             var freqword = null;
-            for (elem in freqgen) {
+            for (let elem in freqgen) {
               if (freqgen[elem]["word"] == word_search) {
                 freqword = freqgen[elem];
               }

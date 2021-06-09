@@ -1,7 +1,4 @@
-const express = require("express");
-const MoviesModel = require("../models/movies");
 const FreqModel = require("../models/freq");
-const e = require("express");
 
 const processFreq = function (movie) {
   // Prétraitement
@@ -9,14 +6,13 @@ const processFreq = function (movie) {
   lword = lword.concat(" ");
   lword = lword.concat(movie.resume.toLowerCase());
   lword = lword.split(" ");
-  console.log(lword);
   var flist = [];
 
   // Calcul de fréquence
-  for (elem in lword) {
+  for (let elem in lword) {
     elem = lword[elem];
     var found = false;
-    for (x in flist) {
+    for (let x in flist) {
       if (flist[x].word == elem) {
         flist[x].score += 1;
         found = true;
@@ -34,11 +30,8 @@ const processFreq = function (movie) {
     FreqModel.find({ word: flist[elem].word })
       .then(function (freqdb) {
         console.log("Mise à jour");
-        console.log(flist[elem].word);
-        console.log(freqdb);
 
         if (freqdb.length == 0) {
-          console.log("Tentative d'ajout if");
 
           const newFreq = new FreqModel({
             word: flist[elem].word,
@@ -49,8 +42,6 @@ const processFreq = function (movie) {
           newFreq.save();
         } else {
           var n = freqdb[0].number + flist[elem].score;
-          console.log("Update");
-          console.log(n);
           FreqModel.deleteOne({ word: flist[elem].word }, function (err) {
             if (err != null) {
               console.log("Erreur de suppression update");
@@ -68,7 +59,6 @@ const processFreq = function (movie) {
         }
       })
       .catch(function (error) {
-        console.log(error);
         console.log("Tentative d'ajout error");
 
         const newFreq = new FreqModel({
