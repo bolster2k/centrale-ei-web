@@ -7,6 +7,7 @@ const searchMovie = function (req, res) {
   for (let word in lword) {
     lword[word] = lword[word].toLowerCase();
   }
+
   console.log(lword);
 
   var resultmovie = [];
@@ -26,15 +27,17 @@ const searchMovie = function (req, res) {
           movie = movies[movie];
           var ns = 0;
           console.log("=Analyse Film=");
-          console.log(movie);
+          //console.log(movie);
           for (let word_search in lword) {
             console.log("===Analyse Requête===");
             word_search = lword[word_search];
             //console.log(word_search);
 
+            var stitle = " ".concat(movie["title"].toLowerCase().concat(" "));
+            var sresume = " ".concat(movie["resume"].toLowerCase().concat(" "));
             var freqindata =
-              movie["title"].toLowerCase().split(word_search).length * 4 +
-              movie["resume"].toLowerCase().split(word_search).length -
+              stitle.split(word_search).length * 4 +
+              sresume.split(word_search).length -
               5;
             console.log("freqindata :");
             console.log(freqindata);
@@ -49,7 +52,7 @@ const searchMovie = function (req, res) {
                 freqword = freqgen[elem];
               }
             }
-            console.log(freqword);
+            //console.log(freqword);
             if (freqword == null) {
               console.log("Passe");
               console.log(word_search);
