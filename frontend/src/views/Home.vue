@@ -24,7 +24,7 @@
     <div>
       <ul>
         <li v-for="movie in movies" :key="movie.id">
-          <router-link class="white" :to="`/film/${movie._id}`">
+          <router-link :to="`/film/${movie._id}`">
             <Movie :movie="movie" />
           </router-link>
         </li>

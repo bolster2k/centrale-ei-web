@@ -6,6 +6,7 @@ import About from "../views/About.vue";
 import Film from "../views/Film.vue";
 import Register from "../views/Register.vue";
 import NewMovie from "../views/NewMovie.vue";
+import Random from "../views/Random.vue";
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
     path: "/newmovie",
     name: "NewMovie",
     component: NewMovie,
+  },
+  {
+    path: "/random",
+    name: "Random",
+    component: Random,
   },
 ];
 

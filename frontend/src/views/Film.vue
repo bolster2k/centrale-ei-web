@@ -76,7 +76,6 @@ export default {
         .then((response) => {
           // Do something if call succeeded
           this.movies.push(response.data.movie[0]);
-          console.log(response.data.movie[0]);
         })
         .catch((error) => {
           this.usersLoadingError = "An error occured while getting film.";
