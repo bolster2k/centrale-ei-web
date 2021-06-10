@@ -33,9 +33,9 @@ const searchMovie = function (req, res) {
             //console.log(word_search);
 
             var freqindata =
-              movie["title"].toLowerCase().split(word_search).length +
+              movie["title"].toLowerCase().split(word_search).length * 4 +
               movie["resume"].toLowerCase().split(word_search).length -
-              2;
+              5;
             console.log("freqindata :");
             console.log(freqindata);
             if (freqindata <= 0) {
