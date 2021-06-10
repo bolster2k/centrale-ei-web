@@ -1,33 +1,6 @@
 <template>
-<<<<<<< HEAD
 <div id="container-movies">
 <ul>
-=======
-  <div class="home">
-    <div>
-      <form class="d-flex" id="search-form">
-        <input
-          class="me-sm-2"
-          type="text"
-          placeholder="Search"
-          v-model="search"
-        />
-        <button
-          class="btn btn-secondary my-2 my-sm-0"
-          type="submit"
-          @click.prevent="fetchMovies"
-        >
-          Search
-        </button>
-      </form>
-    </div>
-    <div>
-      <img alt="spaghetti cheems" src="../assets/cheems.png" />
-      <p>Spaghetti Cheems</p>
-    </div>
-    <div>
-      <ul>
->>>>>>> master
         <li v-for="movie in movies" :key="movie.id">
           <router-link class="white" :to="`/film/${movie._id}`">
             <Movie :movie="movie" />
@@ -135,7 +108,6 @@ li {
 a {
   color: #42b983;
 }
-<<<<<<< HEAD
 #container-movies{
 	position: absolute;
 	width: 100%;
@@ -145,12 +117,6 @@ a {
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
-=======
-.d-flex {
-  width: 25em;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
->>>>>>> master
+
 }
 </style>
