@@ -36,6 +36,11 @@
                 >NewMovie</router-link
               >
             </li>
+            <li class="nav-item">
+              <router-link tag="li" class="nav-link" to="/login"
+                >Login</router-link
+              >
+            </li>
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -68,10 +73,10 @@ import axios from "axios";
 function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
+  var ca = decodedCookie.split(";");
+  for (var i = 0; i < ca.length; i++) {
     var c = ca[i];
-    while (c.charAt(0) == ' ') {
+    while (c.charAt(0) == " ") {
       c = c.substring(1);
     }
     if (c.indexOf(name) == 0) {
@@ -83,28 +88,29 @@ function getCookie(cname) {
 
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
-  d.setTime(d.getTime() + (exdays*24*60*60*1000));
-  var expires = "expires="+ d.toUTCString();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  var expires = "expires=" + d.toUTCString();
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
 export default {
   name: "UserLog",
-  connectUser: async function (c_email, c_password) {  
-    document.cookie = 'user=' + c_email + '; password=' + c_password + ';';
+  connectUser: async function (c_email, c_password) {
+    document.cookie = "user=" + c_email + "; password=" + c_password + ";";
     setCookie("user", c_email, 4);
     setCookie("password", c_password, 4);
-    console.log("In UserLog...")
+    console.log("In UserLog...");
     axios
-      .post(`http://localhost:3000/users/connect`, { email: c_email, password:c_password })
+      .post(`http://localhost:3000/users/connect`, {
+        email: c_email,
+        password: c_password,
+      })
       .then((response) => {
         console.log(response);
         var userlist = response.data;
-        if(userlist.length <= 0)
-        {
+        if (userlist.length <= 0) {
           return false;
-        }
-        else{
+        } else {
           console.log("User connected sucessfuly");
           console.log(userlist);
           return true;
@@ -121,15 +127,16 @@ export default {
     var c_password = getCookie("password");
 
     return await axios
-      .post(`http://localhost:3000/users/connect`, { email: c_email, password:c_password })
+      .post(`http://localhost:3000/users/connect`, {
+        email: c_email,
+        password: c_password,
+      })
       .then(async function (response) {
         var userlist = response.data;
-        if(userlist.length <= 0)
-        {
+        if (userlist.length <= 0) {
           console.log("User disconnected");
           return {};
-        }
-        else{
+        } else {
           console.log("User connected");
           console.log(userlist[0]);
           return userlist[0];
@@ -139,12 +146,12 @@ export default {
         console.error(error);
         console.log("User disconnected");
         return {};
-    });
+      });
   },
 
   disconnectUser: async function () {
-      document.cookie = 'user=; password=;';
-      console.log("User disconnected successfuly");
+    document.cookie = "user=; password=;";
+    console.log("User disconnected successfuly");
   },
 
   isConnected: async function () {
@@ -153,16 +160,17 @@ export default {
     console.log(c_email);
     console.log(c_password);
     return await axios
-      .post(`http://localhost:3000/users/connect`, { email: c_email, password:c_password })
+      .post(`http://localhost:3000/users/connect`, {
+        email: c_email,
+        password: c_password,
+      })
       .then(async function (response) {
         var userlist = response.data;
         console.log(userlist);
-        if(userlist.length <= 0)
-        {
+        if (userlist.length <= 0) {
           console.log("User disconnected");
           return false;
-        }
-        else{
+        } else {
           console.log("User connected");
           return true;
         }
@@ -171,9 +179,8 @@ export default {
         console.error(error);
         console.log("User disconnected");
         return false;
-    });
+      });
   },
-
 };
 </script>
 

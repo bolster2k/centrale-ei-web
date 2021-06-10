@@ -1,34 +1,30 @@
 <template>
-    <div>
-      <form class="d-flex" id="search-form">
-        <input
-          class="me-sm-2"
-          type="text"
-          placeholder="Search"
-          v-model="search"
-        />
-        <button
-          class="btn btn-secondary my-2 my-sm-0"
-          type="submit"
-          @click.prevent="fetchMovies"
-        >
-          Search
-        </button>
-      </form>
-    </div>
-<div id="container-movies">
-<ul>
-        <li v-for="movie in movies" :key="movie.id">
-          <router-link class="white" :to="`/film/${movie._id}`">
-            <Movie :movie="movie" />
-          </router-link>
-        </li>
-      </ul>
+  <div>
+    <form class="d-flex" id="search-form">
+      <input
+        class="me-sm-2"
+        type="text"
+        placeholder="Search"
+        v-model="search"
+      />
+      <button
+        class="btn btn-secondary my-2 my-sm-0"
+        type="submit"
+        @click.prevent="fetchMovies"
+      >
+        Search
+      </button>
+    </form>
   </div>
-
-
-
-
+  <div id="container-movies">
+    <ul>
+      <li v-for="movie in movies" :key="movie.id">
+        <router-link class="white" :to="`/film/${movie._id}`">
+          <Movie :movie="movie" />
+        </router-link>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -125,15 +121,14 @@ li {
 a {
   color: #42b983;
 }
-#container-movies{
-	position: absolute;
-	width: 100%;
-	height: 100%;
+#container-movies {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 </style>

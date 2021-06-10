@@ -1,55 +1,60 @@
 <template>
-<div class="background">
-  <div class="container">
-    <div class="screen">
-      <div class="screen-header">
-        <div class="screen-header-left">
-          <div class="screen-header-button close"></div>
-          <div class="screen-header-button maximize"></div>
-          <div class="screen-header-button minimize"></div>
-        </div>
-        <div class="screen-header-right">
-          <div class="screen-header-ellipsis"></div>
-          <div class="screen-header-ellipsis"></div>
-          <div class="screen-header-ellipsis"></div>
-        </div>
-      </div>
-      <div class="screen-body">
-        <div class="screen-body-item left">
-          <div class="app-title">
-            <span>Sign up</span>
+  <div class="background">
+    <div class="container">
+      <div class="screen">
+        <div class="screen-header">
+          <div class="screen-header-left">
+            <div class="screen-header-button close"></div>
+            <div class="screen-header-button maximize"></div>
+            <div class="screen-header-button minimize"></div>
+          </div>
+          <div class="screen-header-right">
+            <div class="screen-header-ellipsis"></div>
+            <div class="screen-header-ellipsis"></div>
+            <div class="screen-header-ellipsis"></div>
           </div>
         </div>
-        <div class="screen-body-item">
-          <div class="app-form" id='login-form' @submit.prevent="LoginUser">
-            <div class="app-form-group">
-              <input
-                type="email"
-                class="app-form-control"
-                name="email"
-                v-model="email"
-                placeholder="email"
-              />
+        <div class="screen-body">
+          <div class="screen-body-item left">
+            <div class="app-title">
+              <span>Sign up</span>
             </div>
-            <div class="app-form-group message">
-              <input
-                type="text"
-                class="app-form-control"
-                name="password"
-                v-model="password"
-                placeholder="password"
-              />
-            </div>
-            <div class="app-form-group buttons">
-              <button class="app-form-button" type = "button" @click.prevent="LoginUser">SEND</button>
+          </div>
+          <div class="screen-body-item">
+            <div class="app-form" id="login-form" @submit.prevent="LoginUser">
+              <div class="app-form-group">
+                <input
+                  type="email"
+                  class="app-form-control"
+                  name="email"
+                  v-model="email"
+                  placeholder="email"
+                />
+              </div>
+              <div class="app-form-group message">
+                <input
+                  type="text"
+                  class="app-form-control"
+                  name="password"
+                  v-model="password"
+                  placeholder="password"
+                />
+              </div>
+              <div class="app-form-group buttons">
+                <button
+                  class="app-form-button"
+                  type="button"
+                  @click.prevent="LoginUser"
+                >
+                  SEND
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
 </template>
 
 <script>

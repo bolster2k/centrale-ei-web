@@ -97,7 +97,8 @@ export default {
         lastname: this.lastname,
         password: this.password,
       };
-      document.cookie = 'user=' + this.email + '; password=' + this.password + ';';
+      document.cookie =
+        "user=" + this.email + "; password=" + this.password + ";";
       axios
         .post("http://localhost:3000/users/new", newuser)
         .then((response) => {
