@@ -50,6 +50,24 @@
 
 <script>
 import axios from "axios";
+import UserLog from "@/App.vue";
+
+// function getCookie(cname) {
+//   var name = cname + "=";
+//   var decodedCookie = decodeURIComponent(document.cookie);
+//   var ca = decodedCookie.split(';');
+//   for(var i = 0; i <ca.length; i++) {
+//     var c = ca[i];
+//     while (c.charAt(0) == ' ') {
+//       c = c.substring(1);
+//     }
+//     if (c.indexOf(name) == 0) {
+//       return c.substring(name.length, c.length);
+//     }
+//   }
+//   return "";
+// }
+
 export default {
   name: "Film",
   data: function () {
@@ -60,6 +78,9 @@ export default {
       password: "",
       rating: 0,
     };
+  },
+  components: {
+    UserLog,
   },
   methods: {
     createBout: function (url) {
@@ -107,17 +128,29 @@ export default {
           title: this.movies[0].title,
         },
       };
-      axios
-        .post(`http://localhost:3000/film/` + v + `/rating`, newRating)
-        .then((response) => console.log(response))
-        .catch((error) => {
-          this.errorMessage = error.message;
-          console.error("There was an error!", error);
-        });
+      if(UserLog.isConnected())
+      {
+        axios
+          .post(`http://localhost:3000/film/` + v + `/rating`, newRating)
+          .then((response) => console.log(response))
+          .catch((error) => {
+            this.errorMessage = error.message;
+            console.error("There was an error!", error);
+          });
+      }
     },
   },
-  created: function () {
+  created: async function () {
     this.getMovie();
+    console.log(await UserLog.isConnected());
+    if(await UserLog.isConnected())
+    {
+      console.log("Chargement userdata");
+      var user = await UserLog.getUser();
+      console.log(user);
+      this.email = user.email;
+      this.password = user.password; 
+    }
   },
   el: "#signup-form",
 };
