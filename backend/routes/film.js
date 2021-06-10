@@ -24,7 +24,7 @@ router.post("/:id/rating", function (req, res) {
       const newRating = new RatingModel({
         rating: req.body.rating,
         movie: req.body.movie.id,
-        user: user._id,
+        user: user[0]._id,
       });
 
       newRating
