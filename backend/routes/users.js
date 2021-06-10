@@ -34,9 +34,9 @@ router.post("/new", function (req, res) {
 });
 
 router.delete("/delete", function (req, res) {
-  UserModel.deleteOne({_id: req.body.id}, function (err) {
-    if (err) return res.json({ message : "error"});
+  UserModel.deleteOne({ _id: req.body.id }, function (err) {
+    if (err) return res.json({ message: "error" });
   });
-  res.status(200).json({})
+  res.status(200).json({});
 });
 module.exports = router;

@@ -1,8 +1,10 @@
 <template>
-  <img :src="`https://image.tmdb.org/t/p/original${movies[0].path}`" /><br />
-  {{ movies[0].title }}<br />
-  {{ dateday(movies[0].date) }}<br />
-  {{ movies[0].resume }}
+  <div v-if="movies[0]">
+    <img :src="`https://image.tmdb.org/t/p/original${movies[0].path}`" /><br />
+    {{ movies[0].title }}<br />
+    {{ dateday(movies[0].date) }}<br />
+    {{ movies[0].resume }}
+  </div>
 </template>
 
 <script>

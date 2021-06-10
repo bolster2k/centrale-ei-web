@@ -6,9 +6,10 @@ const jsonErrorHandler = require("./services/jsonErrorHandler");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const moviesRouter = require("./routes/movies");
+const freqRouter = require("./routes/freq");
 const fillRouter = require("./routes/fill");
+const registerRouter = require("./routes/register");
 const filmRouter = require("./routes/film");
-const registerRouter = require("./routes/register")
 const routeNotFoundJsonHandler = require("./services/routeNotFoundJsonHandler");
 
 mongoose.connect(process.env.MONGO_DB_URL, {
@@ -28,9 +29,10 @@ app.use(jsonErrorHandler);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/movies", moviesRouter);
+app.use("/freq", freqRouter);
 app.use("/fill", fillRouter);
+app.use("/register", registerRouter);
 app.use("/film", filmRouter);
-app.use("/register", registerRouter)
 
 app.use(routeNotFoundJsonHandler);
 
