@@ -11,10 +11,8 @@
     </div>
     <div>
       <ul>
-        <li v-for="movie in movies" :key="movie._id" class="film">
-          <router-link class="white" :to="`/film/${movie._id}`">
-            <Movie :movie="movie" />
-          </router-link>
+        <li v-for="movie in movies" :key="movie.id">
+          <Movie :movie="movie" />
         </li>
       </ul>
     </div>
@@ -78,12 +76,5 @@ li {
 
 a {
   color: #42b983;
-}
-.film {
-  margin: 1em;
-  cursor: pointer;
-}
-.white {
-  color: white;
 }
 </style>
