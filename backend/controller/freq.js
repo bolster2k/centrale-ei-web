@@ -32,7 +32,6 @@ const processFreq = async function (movie) {
         console.log("Mise à jour");
 
         if (freqdb.length == 0) {
-
           const newFreq = new FreqModel({
             word: flist[elem].word,
             frequency: 0,
@@ -40,7 +39,7 @@ const processFreq = async function (movie) {
           });
 
           await newFreq.save().catch(function (error) {
-            
+            console.log(error);
           });
         } else {
           var n = freqdb[0].number + 1;
@@ -58,14 +57,14 @@ const processFreq = async function (movie) {
             });
 
             await newFreq.save().catch(function (error) {
-            
+              console.log(error);
             });
           });
         }
       })
       .catch(async function (error) {
         console.log("Tentative d'ajout error");
-
+        console.log(error);
         const newFreq = new FreqModel({
           word: flist[elem].word,
           frequency: 0,
@@ -73,7 +72,7 @@ const processFreq = async function (movie) {
         });
 
         await newFreq.save().catch(function (error) {
-            
+          console.log(error);
         });
       });
   }
