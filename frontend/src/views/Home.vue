@@ -1,24 +1,17 @@
 <template>
-  <div class="home">
-    <div>
-      <p>Rentrer un film</p>
-      <input v-model="movieName" />
-      <p>{{ movieName }}</p>
-    </div>
-    <div>
-      <img alt="spaghetti cheems" src="../assets/cheems.png" />
-      <p>Spaghetti Cheems</p>
-    </div>
-    <div>
-      <ul>
+<div id="container-movies">
+<ul>
         <li v-for="movie in movies" :key="movie.id">
           <router-link class="white" :to="`/film/${movie._id}`">
             <Movie :movie="movie" />
           </router-link>
         </li>
       </ul>
-    </div>
   </div>
+
+
+
+
 </template>
 
 <script>
@@ -78,5 +71,15 @@ li {
 
 a {
   color: #42b983;
+}
+#container-movies{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
 }
 </style>
