@@ -1,6 +1,6 @@
 <template>
   <div class="milieu">
-    <form class="d-flex" id="search-form">
+    <form id="search-form">
       <input
         class="me-sm-2"
         type="text"
@@ -132,11 +132,6 @@ a {
 }
 .milieu {
   display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: center;
-}
-.d-flex {
-  align-self: center;
 }
 </style>
