@@ -39,7 +39,7 @@
             <li class="nav-item">
               <router-link tag="li" class="nav-link" to="/random"
                 >Random Movie</router-link
-                >
+              >
             </li>
             <li class="nav-item">
               <router-link tag="li" class="nav-link" to="/login"
