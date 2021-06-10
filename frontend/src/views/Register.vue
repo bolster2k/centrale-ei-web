@@ -1,74 +1,74 @@
 <template>
-  <div class="hero is-fullheight is-info is-bold">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title has-text-centered">You can now register</h1>
-        <div class="box">
-          <!-- our signup form ===================== -->
-          <form id="signup-form" @submit.prevent="RegisterUser">
-            <!-- firstname -->
-            <div class="field">
-              <label class="label">FirstName</label>
+<div class="background">
+  <div class="container">
+    <div class="screen">
+      <div class="screen-header">
+        <div class="screen-header-left">
+          <div class="screen-header-button close"></div>
+          <div class="screen-header-button maximize"></div>
+          <div class="screen-header-button minimize"></div>
+        </div>
+        <div class="screen-header-right">
+          <div class="screen-header-ellipsis"></div>
+          <div class="screen-header-ellipsis"></div>
+          <div class="screen-header-ellipsis"></div>
+        </div>
+      </div>
+      <div class="screen-body">
+        <div class="screen-body-item left">
+          <div class="app-title">
+            <span>Sign up</span>
+          </div>
+        </div>
+        <div class="screen-body-item">
+          <div class="app-form" id='register-form' @submit.prevent="RegisterUser">
+            <div class="app-form-group" >
               <input
                 type="text"
-                class="input"
+                class="app-form-control"
                 name="firstname"
                 v-model="firstname"
                 placeholder="firstname"
               />
             </div>
-            <!-- lasttname -->
-            <div class="field">
-              <label class="label">LastName</label>
+            <div class="app-form-group">
               <input
                 type="text"
-                class="input"
+                class="app-form-control"
                 name="lastname"
                 v-model="lastname"
                 placeholder="lastname"
               />
             </div>
-
-            <!-- email -->
-            <div class="field">
-              <label class="label">Email</label>
-              <input
-                type="email"
-                class="input"
-                name="email"
-                v-model="email"
-                placeholder="email"
-              />
+            <div class="app-form-group">
+              <input type="email" class="app-form-control" name="email" v-model="email" placeholder="email" />
             </div>
-
-            <!-- password -->
-            <div class="field">
-              <label class="label">Password</label>
+            <div class="app-form-group message">
               <input
                 type="text"
-                class="input"
+                class="app-form-control"
                 name="password"
                 v-model="password"
                 placeholder="password"
               />
             </div>
-
-            <!-- submit button -->
-            <div class="field has-text-right">
-              <button type="submit" class="button is-danger">Submit</button>
+            <div class="app-form-group buttons">
+              <button class="app-form-button" type = "button" @click.prevent="RegisterUser">SEND</button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
 </template>
 
 <script>
 import axios from "axios";
 export default {
   name: "Resgister",
-  el: "#signup-form",
+  el: "#register-form",
   data: function () {
     return {
       email: "",
@@ -93,7 +93,7 @@ export default {
         JSON.parse(response.status);
               //redirect logic
         if (status == '201') {
-        this.$router.push('/');
+        this.$router.push('/users');
       }
     })
         .catch((error) => {
