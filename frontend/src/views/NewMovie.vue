@@ -1,61 +1,66 @@
 <template>
-  <div class="hero is-fullheight is-info is-bold">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title has-text-centered">Add your new movie</h1>
-        <div class="box">
-          <!-- our addmovie form ===================== -->
-          <form id="addmovie-form" @submit.prevent="RegisterMovie">
-            <!-- title -->
-            <div class="field">
-              <label class="label">Title</label>
+<div class="background">
+  <div class="container">
+    <div class="screen">
+      <div class="screen-header">
+        <div class="screen-header-left">
+          <div class="screen-header-button close"></div>
+          <div class="screen-header-button maximize"></div>
+          <div class="screen-header-button minimize"></div>
+        </div>
+        <div class="screen-header-right">
+          <div class="screen-header-ellipsis"></div>
+          <div class="screen-header-ellipsis"></div>
+          <div class="screen-header-ellipsis"></div>
+        </div>
+      </div>
+      <div class="screen-body">
+        <div class="screen-body-item left">
+          <div class="app-title">
+            <span>Add movie</span>
+          </div>
+        </div>
+        <div class="screen-body-item">
+          <div class="app-form" id='addmovie-form' @submit.prevent="RegisterUser">
+            <div class="app-form-group" >
               <input
                 type="text"
-                class="input"
+                class="app-form-control"
                 name="title"
                 v-model="title"
-                placeholder="tapez le titre de votre film"
+                placeholder="title"
               />
             </div>
-            <!-- lasttname -->
-            <div class="field">
-              <label class="label">Date</label>
+            <div class="app-form-group">
               <input
                 type="text"
-                class="input"
+                class="app-form-control"
                 name="date"
                 v-model="date"
-                placeholder="yyyy-mm-dd (tapez la date de sortie)"
+                placeholder="yyyy-mm-dd release_date"
               />
             </div>
-
-            <!-- photo path -->
-            <div class="field">
-              <label class="label">Photo Path</label>
-              <input type="text" class="input" name="path" v-model="path" placeholder="tapez le path de la photo jpeg"/>
+            <div class="app-form-group">
+              <input type="text" class="app-form-control" name="path" v-model="path" placeholder="external path to your jpeg" />
             </div>
-
-            <!-- resume -->
-            <div class="field">
-              <label class="label">Resume</label>
+            <div class="app-form-group message">
               <input
                 type="text"
-                class="input"
+                class="app-form-control"
                 name="resume"
                 v-model="resume"
-                placeholder="tapez un resume de votre film"
+                placeholder="resume"
               />
             </div>
-
-            <!-- submit button -->
-            <div class="field has-text-right">
-              <button type="submit" class="button is-danger">Submit</button>
+            <div class="app-form-group buttons">
+              <button class="app-form-button" type = "button" @click.prevent="RegisterUser">SEND</button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
