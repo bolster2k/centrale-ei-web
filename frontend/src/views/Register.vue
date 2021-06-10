@@ -21,11 +21,7 @@
             </div>
           </div>
           <div class="screen-body-item">
-            <div
-              class="app-form"
-              id="register-form"
-              @submit.prevent="RegisterUser"
-            >
+            <div class="app-form" id="register-form">
               <div class="app-form-group">
                 <input
                   type="text"
@@ -82,7 +78,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: "Resgister",
+  name: "Register",
   el: "#register-form",
   data: function () {
     return {

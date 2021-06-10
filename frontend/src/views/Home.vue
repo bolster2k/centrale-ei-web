@@ -1,9 +1,21 @@
 <template>
   <div class="home">
     <div>
-      <p>Rentrer un film</p>
-      <input v-model="movieName" />
-      <p>{{ movieName }}</p>
+      <form class="d-flex" id="search-form">
+        <input
+          class="me-sm-2"
+          type="text"
+          placeholder="Search"
+          v-model="search"
+        />
+        <button
+          class="btn btn-secondary my-2 my-sm-0"
+          type="submit"
+          @click.prevent="fetchMovies"
+        >
+          Search
+        </button>
+      </form>
     </div>
     <div>
       <img alt="spaghetti cheems" src="../assets/cheems.png" />
@@ -26,9 +38,11 @@ import Movie from "@/components/Movie.vue";
 import axios from "axios";
 export default {
   name: "Home",
+  el: "#search-form",
   data: function () {
     return {
       movies: [],
+      search: "",
     };
   },
   components: {
@@ -36,18 +50,52 @@ export default {
   },
   methods: {
     fetchMovies: function () {
-      axios
-        .get(`http://localhost:3000/movies`)
-        .then((response) => {
-          // Do something if call succeeded
-          for (const res in response.data.movies) {
-            this.movies.push(response.data.movies[res]);
-          }
-        })
-        .catch((error) => {
-          this.usersLoadingError = "An error occured while fetching users.";
-          console.error(error);
-        });
+      if (this.search === "") {
+        console.log("pony");
+        axios
+          .get(`http://localhost:3000/movies`)
+          .then((response) => {
+            // Do something if call succeeded
+            for (const res in response.data.movies) {
+              this.movies.push(response.data.movies[res]);
+            }
+          })
+          .catch((error) => {
+            this.usersLoadingError = "An error occured while fetching users.";
+            console.error(error);
+          });
+      } else {
+        console.log("bruh");
+        this.movies = [];
+        axios
+          .post(`http://localhost:3000/movies/search`, { query: this.search })
+          .then((response) => {
+            // Do something if call succeeded
+            for (const res in response.data) {
+              if (response.data[res].score > 0) {
+                console.log(response.data[res]);
+                axios
+                  .post(
+                    `http://localhost:3000/film/` + response.data[res].data._id,
+                    { id: response.data[res].data._id }
+                  )
+                  .then((response) => {
+                    // Do something if call succeeded
+                    this.movies.push(response.data.movie[0]);
+                  })
+                  .catch((error) => {
+                    this.usersLoadingError =
+                      "An error occured while getting film.";
+                    console.error(error);
+                  });
+              }
+            }
+          })
+          .catch((error) => {
+            this.usersLoadingError = "An error occured while fetching users.";
+            console.error(error);
+          });
+      }
     },
   },
   created: function () {
@@ -78,5 +126,11 @@ li {
 
 a {
   color: #42b983;
+}
+.d-flex {
+  width: 25em;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="bs-component">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">DogeFlix</a>
+        <a class="navbar-brand" href="#">CheemsFliCS</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -55,25 +55,9 @@
               </div>
             </li>
           </ul>
-          <form class="d-flex">
-            <input
-              class="form-control me-sm-2"
-              type="text"
-              placeholder="Search"
-            />
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">
-              Search
-            </button>
-          </form>
         </div>
       </div>
     </nav>
-  </div>
-  <div class="nav">
-    <router-link tag="li" class="nav-link" to="/">Home</router-link> |
-    <router-link tag="li" class="nav-link" to="/counter">Counter</router-link> |
-    <router-link tag="li" class="nav-link" to="/about">About</router-link> |
-    <router-link tag="li" class="nav-link" to="/newmovie">NewMovie</router-link>
   </div>
   <router-view />
 </template>
