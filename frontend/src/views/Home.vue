@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="milieu">
     <form class="d-flex" id="search-form">
       <input
         class="me-sm-2"
@@ -19,7 +19,7 @@
   <div id="container-movies">
     <ul>
       <li v-for="movie in movies" :key="movie.id">
-        <router-link class="white" :to="`/film/${movie._id}`">
+        <router-link :to="`/film/${movie._id}`">
           <Movie :movie="movie" />
         </router-link>
       </li>
@@ -45,7 +45,6 @@ export default {
   methods: {
     fetchMovies: function () {
       if (this.search === "") {
-        console.log("pony");
         axios
           .get(`http://localhost:3000/movies`)
           .then((response) => {
@@ -123,12 +122,21 @@ a {
 }
 #container-movies {
   position: absolute;
-  width: 100%;
+  width: 120%;
   height: 100%;
 
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+}
+.milieu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.d-flex {
+  align-self: center;
 }
 </style>

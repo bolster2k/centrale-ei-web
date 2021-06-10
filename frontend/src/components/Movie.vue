@@ -8,7 +8,7 @@
       <div class="movie-inside back">
         <div class="movie-details">
           <h1>
-            {{ movie.title }}<span>{{ dateday(movie.date) }}</span>
+            {{ movie.title }} <br /><span>{{ dateday(movie.date) }}</span>
           </h1>
           <p class="movie-synopsis">{{ movie.resume }}</p>
         </div>
