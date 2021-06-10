@@ -12,7 +12,9 @@
     <div>
       <ul>
         <li v-for="movie in movies" :key="movie.id">
-          <Movie :movie="movie" />
+          <router-link class="white" :to="`/film/${movie._id}`">
+            <Movie :movie="movie" />
+          </router-link>
         </li>
       </ul>
     </div>
