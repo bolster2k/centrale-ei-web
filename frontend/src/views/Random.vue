@@ -1,4 +1,5 @@
 <template>
+  <p>Loading</p>
 </template>
 
 <script>
@@ -17,7 +18,7 @@ export default {
         .get(`http://localhost:3000/random`)
         .then((response) => {
           // Do something if call succeeded
-          this.$router.push(`/film/${ response.data.movie._id }`);
+          this.$router.push(`/film/${response.data.movie._id}`);
         })
         .catch((error) => {
           this.usersLoadingError = "An error occured while getting film.";
