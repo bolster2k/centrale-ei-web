@@ -58,7 +58,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import UserLog from "@/App.vue";
 
 export default {
@@ -69,9 +68,6 @@ export default {
       email: "",
       password: "",
     };
-  },
-  components: {
-    UserLog,
   },
   methods: {
     LoginUser: function () {

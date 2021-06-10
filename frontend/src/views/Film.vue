@@ -40,9 +40,6 @@ export default {
       rating: 0,
     };
   },
-  components: {
-    UserLog,
-  },
   methods: {
     createBout: function (url) {
       let u = "";
