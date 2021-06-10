@@ -1,5 +1,4 @@
 <template>
-  <div class="home">
     <div>
       <form class="d-flex" id="search-form">
         <input
@@ -17,20 +16,19 @@
         </button>
       </form>
     </div>
-    <div>
-      <img alt="spaghetti cheems" src="../assets/cheems.png" />
-      <p>Spaghetti Cheems</p>
-    </div>
-    <div>
-      <ul>
+<div id="container-movies">
+<ul>
         <li v-for="movie in movies" :key="movie.id">
           <router-link class="white" :to="`/film/${movie._id}`">
             <Movie :movie="movie" />
           </router-link>
         </li>
       </ul>
-    </div>
   </div>
+
+
+
+
 </template>
 
 <script>
@@ -127,10 +125,15 @@ li {
 a {
   color: #42b983;
 }
-.d-flex {
-  width: 25em;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+#container-movies{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+
 }
 </style>
