@@ -5,6 +5,7 @@ import Users from "../views/Users.vue";
 import About from "../views/About.vue";
 import Film from "../views/Film.vue";
 import Register from "../views/Register.vue";
+import Login from "../views/Login.vue";
 import NewMovie from "../views/NewMovie.vue";
 import Random from "../views/Random.vue";
 
@@ -38,6 +39,11 @@ const routes = [
     path: "/register",
     name: "Register",
     component: Register,
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
   },
   {
     path: "/newmovie",

@@ -21,25 +21,7 @@
             </div>
           </div>
           <div class="screen-body-item">
-            <div class="app-form" id="register-form">
-              <div class="app-form-group">
-                <input
-                  type="text"
-                  class="app-form-control"
-                  name="firstname"
-                  v-model="firstname"
-                  placeholder="firstname"
-                />
-              </div>
-              <div class="app-form-group">
-                <input
-                  type="text"
-                  class="app-form-control"
-                  name="lastname"
-                  v-model="lastname"
-                  placeholder="lastname"
-                />
-              </div>
+            <div class="app-form" id="login-form" @submit.prevent="LoginUser">
               <div class="app-form-group">
                 <input
                   type="email"
@@ -62,7 +44,7 @@
                 <button
                   class="app-form-button"
                   type="button"
-                  @click.prevent="RegisterUser"
+                  @click.prevent="LoginUser"
                 >
                   SEND
                 </button>
@@ -77,41 +59,25 @@
 
 <script>
 import axios from "axios";
+import UserLog from "@/App.vue";
+
 export default {
-  name: "Register",
-  el: "#register-form",
+  name: "Login",
+  el: "#login-form",
   data: function () {
     return {
       email: "",
-      firstname: "",
-      lastname: "",
       password: "",
     };
   },
+  components: {
+    UserLog,
+  },
   methods: {
-    RegisterUser: function () {
-      // POST request using axios with error handling
-      const newuser = {
-        email: this.email,
-        firstname: this.firstname,
-        lastname: this.lastname,
-        password: this.password,
-      };
-      document.cookie =
-        "user=" + this.email + "; password=" + this.password + ";";
-      axios
-        .post("http://localhost:3000/users/new", newuser)
-        .then((response) => {
-          const status = JSON.parse(response.status);
-          //redirect logic
-          if (status == "201") {
-            this.$router.push("/users");
-          }
-        })
-        .catch((error) => {
-          this.errorMessage = error.message;
-          console.error("There was an error!", error);
-        });
+    LoginUser: function () {
+      console.log("Logging in...");
+      UserLog.connectUser(this.email, this.password);
+      console.log("Done");
     },
   },
 };

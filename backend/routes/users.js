@@ -8,6 +8,14 @@ router.get("/", function (req, res) {
   });
 });
 
+router.post("/connect", function (req, res) {
+  UserModel.find({ email: req.body.email, password: req.body.password }).then(
+    function (user) {
+      res.status(200).json(user);
+    }
+  );
+});
+
 router.post("/new", function (req, res) {
   const newUser = new UserModel({
     email: req.body.email,

@@ -5,29 +5,6 @@
     {{ dateday(movies[0].date) }}<br />
     {{ movies[0].resume }}<br /><br /><br />
     <form id="signup-form" @submit.prevent="sendInfo">
-      <!-- email -->
-      <div class="field">
-        <label class="label">Email</label>
-        <input
-          type="email"
-          class="input"
-          name="email"
-          v-model="email"
-          placeholder="email"
-        />
-      </div>
-
-      <!-- password -->
-      <div class="field">
-        <label class="label">Password</label>
-        <input
-          type="text"
-          class="input"
-          name="password"
-          v-model="password"
-          placeholder="password"
-        />
-      </div>
       <!-- rating -->
       <div class="field">
         <label class="label">Rating</label>
@@ -50,6 +27,8 @@
 
 <script>
 import axios from "axios";
+import UserLog from "@/App.vue";
+
 export default {
   name: "Film",
   data: function () {
@@ -60,6 +39,9 @@ export default {
       password: "",
       rating: 0,
     };
+  },
+  components: {
+    UserLog,
   },
   methods: {
     createBout: function (url) {
@@ -106,17 +88,27 @@ export default {
           title: this.movies[0].title,
         },
       };
-      axios
-        .post(`http://localhost:3000/film/` + v + `/rating`, newRating)
-        .then((response) => console.log(response))
-        .catch((error) => {
-          this.errorMessage = error.message;
-          console.error("There was an error!", error);
-        });
+      if (UserLog.isConnected()) {
+        axios
+          .post(`http://localhost:3000/film/` + v + `/rating`, newRating)
+          .then((response) => console.log(response))
+          .catch((error) => {
+            this.errorMessage = error.message;
+            console.error("There was an error!", error);
+          });
+      }
     },
   },
-  created: function () {
+  created: async function () {
     this.getMovie();
+    console.log(await UserLog.isConnected());
+    if (await UserLog.isConnected()) {
+      console.log("Chargement userdata");
+      var user = await UserLog.getUser();
+      console.log(user);
+      this.email = user.email;
+      this.password = user.password;
+    }
   },
   el: "#signup-form",
 };
