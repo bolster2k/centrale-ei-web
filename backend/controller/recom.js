@@ -32,7 +32,7 @@ const processRecom = async function (user) {
     // --- Fetch
     var i = movierated;
     movierated = movie_array[movierated];
-    var t_rating = await RatingModel.find({ movie: movierated._id })
+    var t_rating = await RatingModel.find({ movie: movierated })
       .then(async function (res) {
         return res;
       })
