@@ -1,11 +1,6 @@
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
-body {
-  background: linear-gradient(#0b1649, #9198e5);
-  color: white;
-  font: 1.5em;
-}
 *,
 *:before,
 *:after {

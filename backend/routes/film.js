@@ -15,7 +15,6 @@ router.post("/:id/rating", function (req, res) {
     email: req.body.email,
     password: req.body.password,
   }).then(function (user) {
-    console.log(user);
     if (!user) {
       res.status(404).json({
         message: `No user with these caracteristics`,
@@ -26,7 +25,6 @@ router.post("/:id/rating", function (req, res) {
         movie: req.body.movie.id,
         user: user[0]._id,
       });
-
       newRating
         .save()
         .then(function (newDocument) {
@@ -35,7 +33,7 @@ router.post("/:id/rating", function (req, res) {
         .catch(function (error) {
           if (error.code === 11000) {
             res.status(400).json({
-              message: `Rating with rate "${newRating.rating}" for user "${user.title}" and movie "${req.body.movie.title}" already exists`,
+              message: `Rating with rate "${newRating.rating}" for user "${user[0].title}" and movie "${req.body.movie.title}" already exists`,
             });
           } else {
             res
