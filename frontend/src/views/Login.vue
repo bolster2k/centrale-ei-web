@@ -3,16 +3,8 @@
     <div class="container">
       <div class="screen">
         <div class="screen-header">
-          <div class="screen-header-left">
-            <div class="screen-header-button close"></div>
-            <div class="screen-header-button maximize"></div>
-            <div class="screen-header-button minimize"></div>
-          </div>
-          <div class="screen-header-right">
-            <div class="screen-header-ellipsis"></div>
-            <div class="screen-header-ellipsis"></div>
-            <div class="screen-header-ellipsis"></div>
-          </div>
+          <div class="screen-header-left"></div>
+          <div class="screen-header-right"></div>
         </div>
         <div class="screen-body">
           <div class="screen-body-item left">
@@ -74,6 +66,7 @@ export default {
       console.log("Logging in...");
       UserLog.connectUser(this.email, this.password);
       console.log("Done");
+      this.$router.push("/");
     },
   },
 };
