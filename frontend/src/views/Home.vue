@@ -1,4 +1,15 @@
 <template>
+  <div class="recom">
+    <div id="container-movies">
+      <ul>
+        <li v-for="movie in movies" :key="movie._id">
+          <router-link :to="`/film/${movie._id}`">
+            <Movie :movie="movie" />
+          </router-link>
+        </li>
+      </ul>
+    </div>
+  </div>
   <div class="milieu">
     <form id="search-form">
       <input
@@ -29,7 +40,6 @@
 
 <script>
 import Movie from "@/components/Movie.vue";
-import Rate from "@/components/Rate.vue";
 import axios from "axios";
 export default {
   name: "Home",
@@ -38,11 +48,11 @@ export default {
     return {
       movies: [],
       search: "",
+      moviesR: [],
     };
   },
   components: {
     Movie,
-    Rate,
   },
   methods: {
     fetchMovies: function () {
@@ -92,6 +102,20 @@ export default {
           });
       }
     },
+    // fetchMoviesR: function () {
+    //   axios
+    //     .get(`http://localhost:3000/movies`)
+    //     .then((response) => {
+    //       // Do something if call succeeded
+    //       for (let res = 0; res < 100; res++) {
+    //         this.movies.push(response.data.movies[res]);
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       this.usersLoadingError = "An error occured while fetching users.";
+    //       console.error(error);
+    //     });
+    // },
   },
   created: function () {
     this.fetchMovies();
