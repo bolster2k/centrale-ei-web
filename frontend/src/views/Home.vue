@@ -29,6 +29,7 @@
 
 <script>
 import Movie from "@/components/Movie.vue";
+import Rate from "@/components/Rate.vue";
 import axios from "axios";
 export default {
   name: "Home",
@@ -41,6 +42,7 @@ export default {
   },
   components: {
     Movie,
+    Rate,
   },
   methods: {
     fetchMovies: function () {
