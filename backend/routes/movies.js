@@ -3,6 +3,7 @@ const MoviesModel = require("../models/movies");
 const router = express.Router();
 const Search = require("../controller/search");
 const proFreq = require("../controller/freq");
+const proRecom = require("../controller/recom");
 
 router.get("/", function (req, res) {
   MoviesModel.find({}).then(function (movies) {
@@ -12,6 +13,11 @@ router.get("/", function (req, res) {
 
 router.post("/search", function (req, res) {
   Search(req.body, res);
+});
+
+router.post("/recomandation", async function (req, res) {
+  var data = await proRecom(req.body);
+  res.status(200).json({ recom: data });
 });
 
 router.post("/new", function (req, res) {

@@ -211,6 +211,7 @@ export default {
     this.getMovie();
     if (await UserLog.isConnected()) {
       var user = await UserLog.getUser();
+      console.log(user);
       this.email = user.email;
       this.password = user.password;
     }
