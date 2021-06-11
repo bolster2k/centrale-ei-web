@@ -1,12 +1,7 @@
 <template>
   <div class="movie-card">
-    <div class="container">
-      <a href="#"
-        ><img
-          :src="`https://image.tmdb.org/t/p/original${movies[0].path}`"
-          alt="cover"
-          class="cover"
-      /></a>
+    <div class="container" v-if="movies[0]">
+      <a href="#"><img :src="movies[0].path" alt="cover" class="cover" /></a>
 
       <div class="hero">
         <div class="details">
@@ -170,6 +165,7 @@ export default {
         .then((response) => {
           // Do something if call succeeded
           this.movies.push(response.data.movie[0]);
+          console.log(this.movies[0].path);
         })
         .catch((error) => {
           this.usersLoadingError = "An error occured while getting film.";
