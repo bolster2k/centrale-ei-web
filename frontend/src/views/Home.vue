@@ -122,7 +122,7 @@ export default {
                 this.usersLoadingError = "An error occured while getting film.";
                 console.error(error);
               });
-          };
+          }
           console.log(this.moviesR);
         })
         .catch((error) => {
