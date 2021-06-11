@@ -9,7 +9,7 @@
         <div class="screen-body">
           <div class="screen-body-item left">
             <div class="app-title">
-              <span>Sign up</span>
+              <span>Register</span>
             </div>
           </div>
           <div class="screen-body-item">
