@@ -69,9 +69,6 @@ export default {
       password: "",
     };
   },
-  components: {
-    UserLog,
-  },
   methods: {
     LoginUser: function () {
       console.log("Logging in...");

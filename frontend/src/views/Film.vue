@@ -155,9 +155,6 @@ export default {
       rating: 0,
     };
   },
-  components: {
-    UserLog,
-  },
   methods: {
     createBout: function (url) {
       let u = "";
@@ -216,11 +213,8 @@ export default {
   },
   created: async function () {
     this.getMovie();
-    console.log(await UserLog.isConnected());
     if (await UserLog.isConnected()) {
-      console.log("Chargement userdata");
       var user = await UserLog.getUser();
-      console.log(user);
       this.email = user.email;
       this.password = user.password;
     }
