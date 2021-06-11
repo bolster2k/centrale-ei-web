@@ -110,14 +110,12 @@ export default {
         .post(`http://localhost:3000/movies/recomandation`, { _id: user })
         .then((response) => {
           // Do something if call succeeded
-          console.log(response.data);
           for (let res = 0; res < 3; res++) {
             var v = response.data.recom[res];
             axios
               .post(`http://localhost:3000/film/` + v, { id: v })
               .then((response) => {
                 // Do something if call succeeded
-                console.log(response.data.movie[0]);
                 this.moviesR.push(response.data.movie[0]);
               })
               .catch((error) => {
@@ -125,7 +123,6 @@ export default {
                 console.error(error);
               });
           }
-          console.log(this.moviesR);
         })
         .catch((error) => {
           this.usersLoadingError = "An error occured while fetching users.";

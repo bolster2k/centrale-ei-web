@@ -22,16 +22,6 @@
               <span class="visually-hidden">(current)</span>
             </li>
             <li class="nav-item">
-              <router-link tag="li" class="nav-link" to="/users"
-                >Users</router-link
-              >
-            </li>
-            <li class="nav-item">
-              <router-link tag="li" class="nav-link" to="/register"
-                >Register</router-link
-              >
-            </li>
-            <li class="nav-item">
               <router-link tag="li" class="nav-link" to="/newmovie"
                 >NewMovie</router-link
               >
@@ -41,11 +31,21 @@
                 >Random Movie</router-link
               >
             </li>
-            <li class="nav-item">
-              <router-link tag="li" class="nav-link" to="/login"
-                >Login</router-link
-              >
-            </li>
+            <div id="right">
+              <li class="nav-item">
+                <router-link tag="li" class="nav-link" to="/register"
+                  >Register</router-link
+                >
+              </li>
+              <li class="nav-item">
+                <router-link tag="li" class="nav-link" to="/login"
+                  >Login</router-link
+                >
+              </li>
+              <li class="nav-item">
+                <div tag="li" class="nav-link">{{ first }} {{ last }}</div>
+              </li>
+            </div>
           </ul>
         </div>
       </div>
@@ -82,6 +82,12 @@ function setCookie(cname, cvalue, exdays) {
 
 export default {
   name: "UserLog",
+  data: function () {
+    return {
+      first: "",
+      last: "",
+    };
+  },
   connectUser: async function (c_email, c_password) {
     document.cookie = "user=" + c_email + "; password=" + c_password + ";";
     setCookie("user", c_email, 4);
@@ -93,13 +99,11 @@ export default {
         password: c_password,
       })
       .then((response) => {
-        console.log(response);
         var userlist = response.data;
         if (userlist.length <= 0) {
           return false;
         } else {
           console.log("User connected sucessfuly");
-          console.log(userlist);
           return true;
         }
       })
@@ -125,7 +129,6 @@ export default {
           return {};
         } else {
           console.log("User connected");
-          console.log(userlist[0]);
           return userlist[0];
         }
       })
@@ -144,8 +147,6 @@ export default {
   isConnected: async function () {
     var c_email = getCookie("user");
     var c_password = getCookie("password");
-    console.log(c_email);
-    console.log(c_password);
     return await axios
       .post(`http://localhost:3000/users/connect`, {
         email: c_email,
@@ -153,7 +154,6 @@ export default {
       })
       .then(async function (response) {
         var userlist = response.data;
-        console.log(userlist);
         if (userlist.length <= 0) {
           console.log("User disconnected");
           return false;
@@ -168,6 +168,39 @@ export default {
         return false;
       });
   },
+  methods: {
+    getUserMethod: async function () {
+      var c_email = getCookie("user");
+      var c_password = getCookie("password");
+
+      return await axios
+        .post(`http://localhost:3000/users/connect`, {
+          email: c_email,
+          password: c_password,
+        })
+        .then(async function (response) {
+          var userlist = response.data;
+          if (userlist.length <= 0) {
+            console.log("User disconnected");
+            return {};
+          } else {
+            console.log("User connected");
+            return userlist[0];
+          }
+        })
+        .catch(async function (error) {
+          console.error(error);
+          console.log("User disconnected");
+          return {};
+        });
+    },
+  },
+  created: async function (){
+    var user = await this.getUserMethod();
+    console.log(user);
+    this.first = user.firstName;
+    this.last = user.lastName;
+  },
 };
 </script>
 
@@ -177,5 +210,11 @@ nav li.router-link-active,
 nav li.router-link-exact-active {
   background-color: indianred;
   cursor: pointer;
+}
+#right {
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex: row;
 }
 </style>
