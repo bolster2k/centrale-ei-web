@@ -1,5 +1,14 @@
 <template>
   <p>Vos recommandations :</p>
+  <div class="container-movies">
+    <ul>
+      <li v-for="movie1 in moviesR" :key="movie1._id">
+        <router-link :to="`/film/${movie1._id}`">
+          <Movie :movie="movie1" />
+        </router-link>
+      </li>
+    </ul>
+  </div>
   <div class="milieu">
     <form id="search-form">
       <input
@@ -17,21 +26,12 @@
       </button>
     </form>
   </div>
-  <div id="container-movies">
-    <ul>
-      <li v-for="movie in moviesR" :key="movie._id">
-        <router-link :to="`/film/${movie._id}`">
-          <Movie :movie="movie" />
-        </router-link>
-      </li>
-    </ul>
-  </div>
   <p>Les films du moment :</p>
-  <div id="container-movies">
+  <div class="container-movies">
     <ul>
-      <li v-for="movie in movies" :key="movie._id">
-        <router-link :to="`/film/${movie._id}`">
-          <Movie :movie="movie" />
+      <li v-for="movie1 in movies" :key="movie1._id">
+        <router-link :to="`/film/${movie1._id}`">
+          <Movie :movie="movie1" />
         </router-link>
       </li>
     </ul>
@@ -41,6 +41,8 @@
 <script>
 import Movie from "@/components/Movie.vue";
 import axios from "axios";
+import UserLog from "@/App.vue";
+
 export default {
   name: "Home",
   el: "#search-form",
@@ -70,7 +72,6 @@ export default {
             console.error(error);
           });
       } else {
-        console.log("bruh");
         this.movies = [];
         axios
           .post(`http://localhost:3000/movies/search`, { query: this.search })
@@ -78,7 +79,6 @@ export default {
             // Do something if call succeeded
             for (const res in response.data) {
               if (response.data[res].score > 0) {
-                console.log(response.data[res]);
                 axios
                   .post(
                     `http://localhost:3000/film/` + response.data[res].data._id,
@@ -102,26 +102,28 @@ export default {
           });
       }
     },
-    fetchMoviesR: function () {
+    fetchMoviesR: async function () {
+      var user = await UserLog.getUser();
       axios
-        .post(`http://localhost:3000/movies/recomandation`)
+        .post(`http://localhost:3000/movies/recomandation`, { _id: user })
         .then((response) => {
           // Do something if call succeeded
-          console.log("ok");
+          console.log(response.data);
           for (let res = 0; res < 5; res++) {
             var v = response.data.recom[res];
             axios
               .post(`http://localhost:3000/film/` + v, { id: v })
               .then((response) => {
                 // Do something if call succeeded
-                this.movies.push(response.data.movie[0]);
-                console.log(this.movies[0].path);
+                console.log(response.data.movie[0]);
+                this.moviesR.push(response.data.movie[0]);
               })
               .catch((error) => {
                 this.usersLoadingError = "An error occured while getting film.";
                 console.error(error);
               });
-          }
+          };
+          console.log(this.moviesR);
         })
         .catch((error) => {
           this.usersLoadingError = "An error occured while fetching users.";
@@ -159,7 +161,7 @@ li {
 a {
   color: #42b983;
 }
-#container-movies {
+.container-movies {
   position: absolute;
   width: 120%;
   height: 100%;
