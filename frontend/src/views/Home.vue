@@ -1,42 +1,46 @@
 <template>
-  <div class="milieu">
-    <form id="search-form">
-      <input
-        class="me-sm-2"
-        type="text"
-        placeholder="Search"
-        v-model="search"
-      />
-      <button
-        class="btn btn-secondary my-2 my-sm-0"
-        type="submit"
-        @click.prevent="fetchMovies"
-      >
-        Search
-      </button>
-    </form>
-  </div>
-  <br />
-  <p>Vos recommandations :</p>
-  <br />
-  <div class="container-movies">
-    <ul>
-      <li v-for="movie1 in moviesR" :key="movie1._id">
-        <router-link :to="`/film/${movie1._id}`">
+  <div>
+    <div class="milieu">
+      <form id="search-form">
+        <input
+          class="me-sm-2"
+          type="text"
+          placeholder="Search"
+          v-model="search"
+        />
+        <button
+          class="btn btn-secondary my-2 my-sm-0"
+          type="submit"
+          @click.prevent="fetchMovies"
+        >
+          Search
+        </button>
+      </form>
+    </div>
+    <div class="first">
+      <p>Vos recommandations :</p>
+      <div class="container-movies">
+        <ul>
+          <li v-for="movie1 in moviesR" :key="movie1._id">
+            <router-link :to="`/film/${movie1._id}`">
+              <Movie :movie="movie1" />
+            </router-link>
+          </li>
+        </ul>
+      </div>
+
+      <p>Les films du moment :</p>
+
+      <div class="trending">
+        <router-link
+          v-for="movie1 in movies"
+          :key="movie1._id"
+          :to="`/film/${movie1._id}`"
+        >
           <Movie :movie="movie1" />
         </router-link>
-      </li>
-    </ul>
-    <br />
-    <p>Les films du moment :</p>
-    <br />
-    <ul>
-      <li v-for="movie1 in movies" :key="movie1._id">
-        <router-link :to="`/film/${movie1._id}`">
-          <Movie :movie="movie1" />
-        </router-link>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -83,7 +87,7 @@ export default {
               if (response.data[res].score > 0) {
                 axios
                   .post(
-                    `http://localhost:3000/film/` + response.data[res].data._id,
+                    "http://localhost:3000/film/" + response.data[res].data._id,
                     { id: response.data[res].data._id }
                   )
                   .then((response) => {
@@ -110,12 +114,14 @@ export default {
         .post(`http://localhost:3000/movies/recomandation`, { _id: user })
         .then((response) => {
           // Do something if call succeeded
+          console.log(response.data);
           for (let res = 0; res < 3; res++) {
             var v = response.data.recom[res];
             axios
               .post(`http://localhost:3000/film/` + v, { id: v })
               .then((response) => {
                 // Do something if call succeeded
+                console.log(response.data.movie[0]);
                 this.moviesR.push(response.data.movie[0]);
               })
               .catch((error) => {
@@ -123,6 +129,7 @@ export default {
                 console.error(error);
               });
           }
+          console.log(this.moviesR);
         })
         .catch((error) => {
           this.usersLoadingError = "An error occured while fetching users.";
@@ -161,7 +168,6 @@ a {
   color: #42b983;
 }
 .container-movies {
-  position: absolute;
   width: 100%;
   height: 100%;
 
@@ -172,6 +178,18 @@ a {
 }
 .milieu {
   display: flex;
+  justify-content: center;
+}
+.first {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.trending {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 </style>

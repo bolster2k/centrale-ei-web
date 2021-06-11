@@ -195,7 +195,7 @@ export default {
         });
     },
   },
-  created: async function (){
+  created: async function () {
     var user = await this.getUserMethod();
     console.log(user);
     this.first = user.firstName;
