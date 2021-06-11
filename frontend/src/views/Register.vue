@@ -97,7 +97,7 @@ export default {
           const status = JSON.parse(response.status);
           //redirect logic
           if (status == "201") {
-            this.$router.push("/users");
+            this.$router.push("/login");
           }
         })
         .catch((error) => {

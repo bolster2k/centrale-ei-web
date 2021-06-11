@@ -18,6 +18,7 @@
       </form>
     </div>
     <div class="first">
+      <br /><br />
       <p>Vos recommandations :</p>
       <div class="container-movies">
         <ul>
@@ -29,7 +30,8 @@
         </ul>
       </div>
 
-      <p>Les films du moment :</p>
+      <p v-if="search == ''">Les films du moment :</p>
+      <p v-if="search != ''">Votre recherche :</p>
 
       <div class="trending">
         <router-link

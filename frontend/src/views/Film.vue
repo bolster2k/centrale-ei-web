@@ -202,7 +202,7 @@ export default {
       if (UserLog.isConnected()) {
         axios
           .post(`http://localhost:3000/film/` + v + `/rating`, newRating)
-          .then((response) => console.log(response))
+          .then(() => this.$router.push("/"))
           .catch((error) => {
             this.errorMessage = error.message;
             console.error("There was an error!", error);
