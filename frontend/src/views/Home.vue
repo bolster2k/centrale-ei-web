@@ -109,7 +109,7 @@ export default {
         .then((response) => {
           // Do something if call succeeded
           console.log(response.data);
-          for (let res = 0; res < 5; res++) {
+          for (let res = 0; res < 4; res++) {
             var v = response.data.recom[res];
             axios
               .post(`http://localhost:3000/film/` + v, { id: v })
