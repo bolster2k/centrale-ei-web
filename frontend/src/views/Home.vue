@@ -1,14 +1,4 @@
 <template>
-  <p>Vos recommandations :</p>
-  <div class="container-movies">
-    <ul>
-      <li v-for="movie1 in moviesR" :key="movie1._id">
-        <router-link :to="`/film/${movie1._id}`">
-          <Movie :movie="movie1" />
-        </router-link>
-      </li>
-    </ul>
-  </div>
   <div class="milieu">
     <form id="search-form">
       <input
@@ -26,8 +16,20 @@
       </button>
     </form>
   </div>
-  <p>Les films du moment :</p>
+  <br />
+  <p>Vos recommandations :</p>
+  <br />
   <div class="container-movies">
+    <ul>
+      <li v-for="movie1 in moviesR" :key="movie1._id">
+        <router-link :to="`/film/${movie1._id}`">
+          <Movie :movie="movie1" />
+        </router-link>
+      </li>
+    </ul>
+    <br />
+    <p>Les films du moment :</p>
+    <br />
     <ul>
       <li v-for="movie1 in movies" :key="movie1._id">
         <router-link :to="`/film/${movie1._id}`">
@@ -109,7 +111,7 @@ export default {
         .then((response) => {
           // Do something if call succeeded
           console.log(response.data);
-          for (let res = 0; res < 4; res++) {
+          for (let res = 0; res < 3; res++) {
             var v = response.data.recom[res];
             axios
               .post(`http://localhost:3000/film/` + v, { id: v })
