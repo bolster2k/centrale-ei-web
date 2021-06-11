@@ -17,7 +17,7 @@ router.post("/search", function (req, res) {
 
 router.post("/recomandation", async function (req, res) {
   var data = await proRecom(req.body);
-  res.status(200).json({recom:data});
+  res.status(200).json({ recom: data });
 });
 
 router.post("/new", function (req, res) {
