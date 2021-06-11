@@ -1,6 +1,6 @@
 <template>
   <div v-if="movies[0]">
-    <img :src="`https://image.tmdb.org/t/p/original${movies[0].path}`" /><br />
+    <img :src="movies[0].path" /><br />
     {{ movies[0].title }}<br />
     {{ dateday(movies[0].date) }}<br />
     {{ movies[0].resume }}<br /><br /><br />
@@ -89,13 +89,13 @@ export default {
         },
       };
       if (UserLog.isConnected()) {
-        axios
-          .post(`http://localhost:3000/film/` + v + `/rating`, newRating)
-          .then((response) => console.log(response))
-          .catch((error) => {
-            this.errorMessage = error.message;
-            console.error("There was an error!", error);
-          });
+      axios
+        .post(`http://localhost:3000/film/` + v + `/rating`, newRating)
+        .then((response) => console.log(response))
+        .catch((error) => {
+          this.errorMessage = error.message;
+          console.error("There was an error!", error);
+        });
       }
     },
   },
@@ -103,11 +103,11 @@ export default {
     this.getMovie();
     console.log(await UserLog.isConnected());
     if (await UserLog.isConnected()) {
-      console.log("Chargement userdata");
-      var user = await UserLog.getUser();
-      console.log(user);
-      this.email = user.email;
-      this.password = user.password;
+    console.log("Chargement userdata");
+    var user = await UserLog.getUser();
+    console.log(user);
+    this.email = user.email;
+    this.password = user.password;
     }
   },
   el: "#signup-form",

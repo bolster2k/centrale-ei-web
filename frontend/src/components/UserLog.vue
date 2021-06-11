@@ -1,4 +1,3 @@
-<template></template>
 <script>
 import axios from "axios";
 
@@ -36,7 +35,7 @@ export default {
           password: c_password,
         })
         .then((response) => {
-          userlist = response.body.user;
+          const userlist = response.body.user;
           if (userlist.length <= 0) {
             return false;
           } else {
@@ -93,4 +92,3 @@ export default {
   },
 };
 </script>
-<style scoped></style>

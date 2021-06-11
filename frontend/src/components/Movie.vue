@@ -2,13 +2,13 @@
   <div class="container-movie">
     <div class="movie">
       <div class="movie-inside front">
-        <img :src="`https://image.tmdb.org/t/p/original${movie.path}`" />
+        <img :src="movie.path" />
       </div>
 
       <div class="movie-inside back">
         <div class="movie-details">
           <h1>
-            {{ movie.title }} <br /><span>{{ dateday(movie.date) }}</span>
+            {{ movie.title }} <br /><span v-if="movie.date">{{ dateday(movie.date) }}</span>
           </h1>
           <p class="movie-synopsis">{{ movie.resume }}</p>
         </div>
@@ -24,6 +24,7 @@ export default {
   },
   methods: {
     dateday: function (date) {
+      console.log(this.movie.title)
       let u = "";
       for (let i = 0; i < 10; i++) {
         u = u.concat(date[i]);

@@ -18,7 +18,7 @@
   </div>
   <div id="container-movies">
     <ul>
-      <li v-for="movie in movies" :key="movie.id">
+      <li v-for="movie in movies" :key="movie._id">
         <router-link :to="`/film/${movie._id}`">
           <Movie :movie="movie" />
         </router-link>
@@ -49,7 +49,7 @@ export default {
           .get(`http://localhost:3000/movies`)
           .then((response) => {
             // Do something if call succeeded
-            for (const res in response.data.movies) {
+            for (let res = 0; res < 100; res++) {
               this.movies.push(response.data.movies[res]);
             }
           })

@@ -58,7 +58,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import UserLog from "@/App.vue";
 
 export default {
