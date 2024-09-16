@@ -25,22 +25,36 @@ router.post("/:id/rating", function (req, res) {
         movie: req.body.movie.id,
         user: user[0].id,
       });
-      newRating
-        .save()
-        .then(function (newDocument) {
-          res.status(201).json(newDocument);
+      RatingModel.find({ movie: req.body.movie.id, user: user[0].id })
+        .then(function (rating) {
+          if (!rating) {
+            RatingModel.update(
+              { user: rating.user, movie: rating.movie },
+              { rating: req.body.rating }
+            );
+          } else {
+            console.log("coucou");
+            newRating
+              .save()
+              .then(function (newDocument) {
+                res.status(201).json(newDocument);
+              })
+              .catch(function (error) {
+                if (error.code === 11000) {
+                  res.status(400).json({
+                    message: `Rating with rate "${newRating.rating}" for user "${user[0].title}" and movie "${req.body.movie.title}" already exists`,
+                  });
+                } else {
+                  res
+                    .status(500)
+                    .json({ message: "Error while creating the rating" });
+                  console.log(error);
+                }
+              });
+          }
         })
         .catch(function (error) {
-          if (error.code === 11000) {
-            res.status(400).json({
-              message: `Rating with rate "${newRating.rating}" for user "${user[0].title}" and movie "${req.body.movie.title}" already exists`,
-            });
-          } else {
-            res
-              .status(500)
-              .json({ message: "Error while creating the rating" });
-            console.log(error);
-          }
+          console.log(error);
         });
     }
   });

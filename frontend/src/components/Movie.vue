@@ -26,7 +26,6 @@ export default {
   },
   methods: {
     dateday: function (date) {
-      console.log(this.movie.title);
       let u = "";
       for (let i = 0; i < 10; i++) {
         u = u.concat(date[i]);

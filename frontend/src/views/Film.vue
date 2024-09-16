@@ -12,16 +12,19 @@
           </div>
 
           <fieldset class="rating">
-            <input type="radio" id="star5" name="rating" value="5" /><label
-              class="full"
-              for="star5"
-              title="Awesome - 5 stars"
-            ></label>
+            <input
+              type="radio"
+              id="star5"
+              name="rating"
+              value="5"
+              @click="sendInfo(5)"
+            /><label class="full" for="star5" title="Awesome - 5 stars"></label>
             <input
               type="radio"
               id="star4half"
               name="rating"
               value="4 and a half"
+              @click="sendInfo(4.5)"
             /><label
               class="half"
               for="star4half"
@@ -32,7 +35,7 @@
               id="star4"
               name="rating"
               value="4"
-              checked
+              @click="sendInfo(4)"
             /><label
               class="full"
               for="star4"
@@ -43,27 +46,37 @@
               id="star3half"
               name="rating"
               value="3 and a half"
+              @click="sendInfo(3.5)"
             /><label
               class="half"
               for="star3half"
               title="Meh - 3.5 stars"
             ></label>
-            <input type="radio" id="star3" name="rating" value="3" /><label
-              class="full"
-              for="star3"
-              title="Meh - 3 stars"
-            ></label>
+            <input
+              type="radio"
+              id="star3"
+              name="rating"
+              value="3"
+              @click="sendInfo(3)"
+            /><label class="full" for="star3" title="Meh - 3 stars"></label>
             <input
               type="radio"
               id="star2half"
               name="rating"
               value="2 and a half"
+              @click="sendInfo(2.5)"
             /><label
               class="half"
               for="star2half"
               title="Kinda bad - 2.5 stars"
             ></label>
-            <input type="radio" id="star2" name="rating" value="2" /><label
+            <input
+              type="radio"
+              id="star2"
+              name="rating"
+              value="2"
+              @click="sendInfo(2)"
+            /><label
               class="full"
               for="star2"
               title="Kinda bad - 2 stars"
@@ -73,12 +86,19 @@
               id="star1half"
               name="rating"
               value="1 and a half"
+              @click="sendInfo(1.5)"
             /><label
               class="half"
               for="star1half"
               title="Meh - 1.5 stars"
             ></label>
-            <input type="radio" id="star1" name="rating" value="1" /><label
+            <input
+              type="radio"
+              id="star1"
+              name="rating"
+              value="1"
+              @click="sendInfo(1)"
+            /><label
               class="full"
               for="star1"
               title="Sucks big time - 1 star"
@@ -88,6 +108,8 @@
               id="starhalf"
               name="rating"
               value="half"
+              checked
+              @click="sendInfo(0.5)"
             /><label
               class="half"
               for="starhalf"
@@ -113,26 +135,6 @@
     <!-- end container -->
   </div>
   <!-- end movie-card -->
-  <div v-if="movies[0]">
-    <form id="signup-form" @submit.prevent="sendInfo">
-      <!-- rating -->
-      <div class="field">
-        <label class="label">Rating</label>
-        <input
-          type="text"
-          class="input"
-          name="rating"
-          v-model="rating"
-          placeholder="rating"
-        />
-      </div>
-
-      <!-- submit button -->
-      <div class="field has-text-right">
-        <button type="submit" class="button is-danger">Submit</button>
-      </div>
-    </form>
-  </div>
 </template>
 
 <script>
@@ -184,9 +186,10 @@ export default {
     /* pour le rating !!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
     //
     //
-    sendInfo: function () {
+    sendInfo: function (value) {
       // POST request using axios with error handling
       const v = this.createBout(this.href);
+      this.rating = value;
       const newRating = {
         email: this.email,
         password: this.password,
@@ -199,7 +202,7 @@ export default {
       if (UserLog.isConnected()) {
         axios
           .post(`http://localhost:3000/film/` + v + `/rating`, newRating)
-          .then((response) => console.log(response))
+          .then(() => this.$router.push("/"))
           .catch((error) => {
             this.errorMessage = error.message;
             console.error("There was an error!", error);

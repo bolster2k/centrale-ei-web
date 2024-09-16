@@ -1,35 +1,56 @@
 <template>
-  <div class="milieu">
-    <form id="search-form">
-      <input
-        class="me-sm-2"
-        type="text"
-        placeholder="Search"
-        v-model="search"
-      />
-      <button
-        class="btn btn-secondary my-2 my-sm-0"
-        type="submit"
-        @click.prevent="fetchMovies"
-      >
-        Search
-      </button>
-    </form>
-  </div>
-  <div id="container-movies">
-    <ul>
-      <li v-for="movie in movies" :key="movie._id">
-        <router-link :to="`/film/${movie._id}`">
-          <Movie :movie="movie" />
+  <div>
+    <div class="milieu">
+      <form id="search-form">
+        <input
+          class="me-sm-2"
+          type="text"
+          placeholder="Search"
+          v-model="search"
+        />
+        <button
+          class="btn btn-secondary my-2 my-sm-0"
+          type="submit"
+          @click.prevent="fetchMovies"
+        >
+          Search
+        </button>
+      </form>
+    </div>
+    <div class="first">
+      <br /><br />
+      <p>Vos recommandations :</p>
+      <div class="container-movies">
+        <ul>
+          <li v-for="movie1 in moviesR" :key="movie1._id">
+            <router-link :to="`/film/${movie1._id}`">
+              <Movie :movie="movie1" />
+            </router-link>
+          </li>
+        </ul>
+      </div>
+
+      <p v-if="search == ''">Les films du moment :</p>
+      <p v-if="search != ''">Votre recherche :</p>
+
+      <div class="trending">
+        <router-link
+          v-for="movie1 in movies"
+          :key="movie1._id"
+          :to="`/film/${movie1._id}`"
+        >
+          <Movie :movie="movie1" />
         </router-link>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Movie from "@/components/Movie.vue";
 import axios from "axios";
+import UserLog from "@/App.vue";
+
 export default {
   name: "Home",
   el: "#search-form",
@@ -37,6 +58,7 @@ export default {
     return {
       movies: [],
       search: "",
+      moviesR: [],
     };
   },
   components: {
@@ -58,7 +80,6 @@ export default {
             console.error(error);
           });
       } else {
-        console.log("bruh");
         this.movies = [];
         axios
           .post(`http://localhost:3000/movies/search`, { query: this.search })
@@ -66,10 +87,9 @@ export default {
             // Do something if call succeeded
             for (const res in response.data) {
               if (response.data[res].score > 0) {
-                console.log(response.data[res]);
                 axios
                   .post(
-                    `http://localhost:3000/film/` + response.data[res].data._id,
+                    "http://localhost:3000/film/" + response.data[res].data._id,
                     { id: response.data[res].data._id }
                   )
                   .then((response) => {
@@ -90,9 +110,38 @@ export default {
           });
       }
     },
+    fetchMoviesR: async function () {
+      var user = await UserLog.getUser();
+      axios
+        .post(`http://localhost:3000/movies/recomandation`, { _id: user })
+        .then((response) => {
+          // Do something if call succeeded
+          console.log(response.data);
+          for (let res = 0; res < 3; res++) {
+            var v = response.data.recom[res];
+            axios
+              .post(`http://localhost:3000/film/` + v, { id: v })
+              .then((response) => {
+                // Do something if call succeeded
+                console.log(response.data.movie[0]);
+                this.moviesR.push(response.data.movie[0]);
+              })
+              .catch((error) => {
+                this.usersLoadingError = "An error occured while getting film.";
+                console.error(error);
+              });
+          }
+          console.log(this.moviesR);
+        })
+        .catch((error) => {
+          this.usersLoadingError = "An error occured while fetching users.";
+          console.error(error);
+        });
+    },
   },
   created: function () {
     this.fetchMovies();
+    this.fetchMoviesR();
   },
 };
 </script>
@@ -120,9 +169,8 @@ li {
 a {
   color: #42b983;
 }
-#container-movies {
-  position: absolute;
-  width: 120%;
+.container-movies {
+  width: 100%;
   height: 100%;
 
   display: flex;
@@ -132,6 +180,18 @@ a {
 }
 .milieu {
   display: flex;
+  justify-content: center;
+}
+.first {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.trending {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 </style>

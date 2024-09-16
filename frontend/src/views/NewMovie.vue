@@ -3,16 +3,8 @@
     <div class="container">
       <div class="screen">
         <div class="screen-header">
-          <div class="screen-header-left">
-            <div class="screen-header-button close"></div>
-            <div class="screen-header-button maximize"></div>
-            <div class="screen-header-button minimize"></div>
-          </div>
-          <div class="screen-header-right">
-            <div class="screen-header-ellipsis"></div>
-            <div class="screen-header-ellipsis"></div>
-            <div class="screen-header-ellipsis"></div>
-          </div>
+          <div class="screen-header-left"></div>
+          <div class="screen-header-right"></div>
         </div>
         <div class="screen-body">
           <div class="screen-body-item left">
@@ -21,11 +13,7 @@
             </div>
           </div>
           <div class="screen-body-item">
-            <div
-              class="app-form"
-              id="addmovie-form"
-              @submit.prevent="RegisterUser"
-            >
+            <div class="app-form" id="addmovie-form">
               <div class="app-form-group">
                 <input
                   type="text"
@@ -66,7 +54,7 @@
                 <button
                   class="app-form-button"
                   type="button"
-                  @click.prevent="RegisterUser"
+                  @click.prevent="RegisterMovie"
                 >
                   SEND
                 </button>
@@ -97,13 +85,20 @@ export default {
       // POST request using axios with error handling
       const newmovie = {
         title: this.title,
-        date: this.date + "T00:00:00.000Z",
+        date: new Date(this.date + "T00:00:00.000Z"),
         path: this.path,
         resume: this.resume,
       };
+      console.log(newmovie.date);
       axios
         .post("http://localhost:3000/movies/new", newmovie)
-        .then((response) => (this.newuserId = response.data.id))
+        .then((response) => {
+          console.log(response.data);
+          const status = JSON.parse(response.status);
+          if (status == "201") {
+            this.$router.push("/");
+          }
+        })
         .catch((error) => {
           this.errorMessage = error.message;
           console.error("There was an error!", error);

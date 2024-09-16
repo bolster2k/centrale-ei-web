@@ -3,21 +3,13 @@
     <div class="container">
       <div class="screen">
         <div class="screen-header">
-          <div class="screen-header-left">
-            <div class="screen-header-button close"></div>
-            <div class="screen-header-button maximize"></div>
-            <div class="screen-header-button minimize"></div>
-          </div>
-          <div class="screen-header-right">
-            <div class="screen-header-ellipsis"></div>
-            <div class="screen-header-ellipsis"></div>
-            <div class="screen-header-ellipsis"></div>
-          </div>
+          <div class="screen-header-left"></div>
+          <div class="screen-header-right"></div>
         </div>
         <div class="screen-body">
           <div class="screen-body-item left">
             <div class="app-title">
-              <span>Sign up</span>
+              <span>Register</span>
             </div>
           </div>
           <div class="screen-body-item">
@@ -105,7 +97,7 @@ export default {
           const status = JSON.parse(response.status);
           //redirect logic
           if (status == "201") {
-            this.$router.push("/users");
+            this.$router.push("/login");
           }
         })
         .catch((error) => {
